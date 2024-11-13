@@ -17,6 +17,8 @@ public:
 	~Shader();
 	void Bind() const;
 	void Unbind() const;
+	void SetUniform1i(const std::string& name,int value);
+	void SetUniform1f(const std::string& name,float value);
 	void SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3);// convert to vec4 when using math
 private:
 	unsigned int CompileShader(unsigned int type, const std::string source);
