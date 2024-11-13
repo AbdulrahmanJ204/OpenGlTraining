@@ -116,15 +116,17 @@ int main() {
 	Renderer renderer;
 	//GLCall(glClearColor(1.0f, 1.0f, 1.0f, 0.9f));
 	while (!glfwWindowShouldClose(window)) {
-		GLCall(glClear(GL_COLOR_BUFFER_BIT));
-
+		
+		renderer.Clear();
 		// draw left tri
 		UniformShader.Bind();
 		UniformShader.SetUniform4f("u_Color", r, g, b, 1.0f);
 		renderer.Draw(va1, ib, UniformShader);
 		// draw right tri
 		renderer.Draw(va2, ib, OutInShader);
+
 		changeColors( increament, r, g, b);
+
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
