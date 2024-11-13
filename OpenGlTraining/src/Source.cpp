@@ -10,18 +10,35 @@
 
 #include<intrin.h>
 
-#include"Renderer.h"
+#include"GLErrorManager.h"
 
 #include"VertexBuffer.h"
 #include"IndexBuffer.h"
 #include "VertexArray.h"
 #include "Shader.h"
+#include "Renderer.h"
+#include "Source.h"
 
 float getRandom() {
 	float number = (float)(rand() % 100) / 100;
 
 	//std::cout << "Rand  = " << number << std::endl;
 	return number;
+}
+void changeColors(float  increament[3],float& r, float& g, float& b)
+{
+	if (r > 1.0 || r < 0.0) {
+		increament[0] *= -1;
+	}
+	r += increament[0];
+	if (g > 1.0 || g < 0.0) {
+		increament[1] *= -1;
+	}
+	g += increament[1];
+	if (b > 1.0 || b < 0.0) {
+		increament[2] *= -1;
+	}
+	b += increament[2];
 }
 int main() {
 	//srand(time(0));
@@ -71,6 +88,7 @@ int main() {
 		0, 1, 2,
 	};
 	IndexBuffer ib(indices, 3);
+	ib.Bind();
 
 
 	VertexBuffer vertexBuffer(vertices1, sizeof(vertices1));
@@ -79,52 +97,34 @@ int main() {
 	layout.Push<float>(2);
 	layout.Push<float>(4);
 	va1.AddBuffer(vertexBuffer, layout);
-	ib.Bind();
-	va1.Unbind();
-	ib.Unbind();
 
 	VertexBuffer vb2(vertices2, sizeof(vertices2));
 	VertexArray va2;
 	VertexBufferLayout  layout2 = layout;
 	va2.AddBuffer(vb2, layout2);
-	ib.Bind();
 
 
 
 	Shader UniformShader("res/shaders/Uniform.shader");
 	Shader OutInShader("res/shaders/OutIn.shader");
-	va2.Unbind();
-	ib.Unbind();
 
 	float r = 0.5f;
-	float increament = 0.05f;
+	float g = 0.8f;
+	float b = 0.2f;
+	float increament[] = { 0.01f  , 0.01f , 0.01f};
 
+	Renderer renderer;
 	//GLCall(glClearColor(1.0f, 1.0f, 1.0f, 0.9f));
 	while (!glfwWindowShouldClose(window)) {
 		GLCall(glClear(GL_COLOR_BUFFER_BIT));
 
-
-
-
 		// draw left tri
-		va1.Bind();
 		UniformShader.Bind();
-		UniformShader.SetUniform4f("u_Color", r, 0.3f, 0.8f, 1.0f);
-
-		//GLCall(glDrawArrays(GL_TRIANGLES, 0, 3));
-		GLCall(glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr));
-
+		UniformShader.SetUniform4f("u_Color", r, g, b, 1.0f);
+		renderer.Draw(va1, ib, UniformShader);
 		// draw right tri
-		va2.Bind();
-		OutInShader.Bind();
-		GLCall(glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr));
-		//GLCall(glDrawArrays(GL_TRIANGLES, 0, 3));
-
-
-		if (r > 1.0 || r < 0.0) {
-			increament *= -1;
-		}
-		r += increament;
+		renderer.Draw(va2, ib, OutInShader);
+		changeColors( increament, r, g, b);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
