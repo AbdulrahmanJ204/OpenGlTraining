@@ -189,7 +189,10 @@
     <None Include="res\shaders\Uniform.shader" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\textures\a10.png" />
+    <Image Include="res\textures\ghg.png" />
     <Image Include="res\textures\photo.jpg" />
+    <Image Include="res\textures\sdf.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

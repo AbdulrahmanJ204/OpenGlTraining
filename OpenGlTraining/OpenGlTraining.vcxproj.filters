@@ -96,5 +96,14 @@
     <Image Include="res\textures\photo.jpg">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\textures\a10.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textures\ghg.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textures\sdf.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
