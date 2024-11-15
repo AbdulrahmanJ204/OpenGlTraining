@@ -92,7 +92,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependincies\include;$(SolutionDir)OpenGlTraining\src\Vendor</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependincies\include;$(SolutionDir)OpenGlTraining\src\Vendor;src;</AdditionalIncludeDirectories>
       <AdditionalOptions> /utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -110,7 +110,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependincies\include;$(SolutionDir)OpenGlTraining\src\Vendor</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependincies\include;$(SolutionDir)OpenGlTraining\src\Vendor;src;</AdditionalIncludeDirectories>
       <AdditionalOptions> /utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -128,7 +128,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependincies\include;$(SolutionDir)OpenGlTraining\src\Vendor</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependincies\include;$(SolutionDir)OpenGlTraining\src\Vendor;src;</AdditionalIncludeDirectories>
       <AdditionalOptions> /utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -146,7 +146,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)Dependincies\include;$(SolutionDir)OpenGlTraining\src\Vendor</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Dependincies\include;$(SolutionDir)OpenGlTraining\src\Vendor;src;</AdditionalIncludeDirectories>
       <AdditionalOptions> /utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
@@ -159,28 +159,49 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\myImGuiManager.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\Shader.h" />
     <ClInclude Include="src\IndexBuffer.h" />
     <ClInclude Include="src\GLErrorManager.h" />
     <ClInclude Include="src\resource.h" />
+    <ClInclude Include="src\Vendor\imGui\imconfig.h" />
+    <ClInclude Include="src\Vendor\imGui\imgui.h" />
+    <ClInclude Include="src\Vendor\imGui\imgui_impl_glfw.h" />
+    <ClInclude Include="src\Vendor\imGui\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\Vendor\imGui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="src\Vendor\imGui\imgui_internal.h" />
+    <ClInclude Include="src\Vendor\imGui\imstb_rectpack.h" />
+    <ClInclude Include="src\Vendor\imGui\imstb_textedit.h" />
+    <ClInclude Include="src\Vendor\imGui\imstb_truetype.h" />
     <ClInclude Include="src\Vendor\stb_image\stb_image.h" />
     <ClInclude Include="src\VertexArray.h" />
     <ClInclude Include="src\VertexBuffer.h" />
     <ClInclude Include="src\VertexBufferLayout.h" />
     <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\tests\Test.h" />
+    <ClInclude Include="src\tests\TestClearColor.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\myImGuiManager.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\Shader.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\GLErrorManager.cpp" />
     <ClCompile Include="src\Source.cpp" />
+    <ClCompile Include="src\Vendor\imGui\imgui.cpp" />
+    <ClCompile Include="src\Vendor\imGui\imgui_demo.cpp" />
+    <ClCompile Include="src\Vendor\imGui\imgui_draw.cpp" />
+    <ClCompile Include="src\Vendor\imGui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="src\Vendor\imGui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\Vendor\imGui\imgui_tables.cpp" />
+    <ClCompile Include="src\Vendor\imGui\imgui_widgets.cpp" />
     <ClCompile Include="src\Vendor\stb_image\stb_image.cpp" />
     <ClCompile Include="src\VertexArray.cpp" />
     <ClCompile Include="src\VertexBuffer.cpp" />
     <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\tests\TestClearColor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />

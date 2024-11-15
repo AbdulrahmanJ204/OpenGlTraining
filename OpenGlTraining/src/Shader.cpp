@@ -111,7 +111,11 @@ void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2,
 }
 void Shader::setUniformMat4f(const std::string& name, const glm::mat4& matrix)
 {
-		GLCall(glUniformMatrix4fv(getUniformLoacation(name) , 1 , GL_FALSE , &matrix[0][0])); // location , how many matrix ary we providing , something about array format , pointer to the first elemtn in array
+		GLCall(glUniformMatrix4fv(getUniformLoacation(name) , 1 , GL_FALSE , &matrix[0][0])); // location , how many matrix ary we providing , something about array format , pointer to the first elemnt in array
+}
+void Shader::SetUniform4fv(const std::string& name, glm::vec4 vec)
+{
+	GLCall(glUniform4fv(getUniformLoacation(name), 1, &vec[0]));
 }
 
 void Shader::SetUniform1i(const std::string& name, int value)

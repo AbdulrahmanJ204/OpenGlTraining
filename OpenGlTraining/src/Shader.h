@@ -21,6 +21,7 @@ public:
 	void SetUniform1i(const std::string& name,int value);
 	void SetUniform1f(const std::string& name,float value);
 	void SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3);// convert to vec4 when using math
+	void SetUniform4fv(const std::string& name, glm::vec4 vec);// convert to vec4 when using math
 	void setUniformMat4f(const std::string& name, const glm::mat4& matrix);
 
 	
