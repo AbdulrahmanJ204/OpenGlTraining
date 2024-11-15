@@ -1,6 +1,6 @@
 #include "TestClearColor.h"
 #include "GLErrorManager.h"
-
+#include "imGui/imgui.h"
 test::TestClearColor::TestClearColor():
 	m_ClearColor{1.0f , 0.5f , 0.8f , 1.0f}
 {
@@ -23,4 +23,5 @@ void test::TestClearColor::OnRender()
 
 void test::TestClearColor::OnImGuiRender()
 {
+	ImGui::ColorEdit4("Color Change", m_ClearColor);
 }

@@ -190,6 +190,7 @@
     <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\GLErrorManager.cpp" />
     <ClCompile Include="src\Source.cpp" />
+    <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\Vendor\imGui\imgui.cpp" />
     <ClCompile Include="src\Vendor\imGui\imgui_demo.cpp" />
     <ClCompile Include="src\Vendor\imGui\imgui_draw.cpp" />
