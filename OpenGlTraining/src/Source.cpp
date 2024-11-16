@@ -20,7 +20,8 @@
 #include "imGui/imgui_impl_glfw.h"
 #include "imGui/imgui_impl_opengl3.h"
 #include "myImGuiManager.h"
-#include <tests/TestClearColor.h>
+#include "tests/TestClearColor.h"
+#include "tests/TestTexture2D.h"
 
 int width = 800, height = 800;
 float getRandom() {
@@ -70,6 +71,7 @@ int main() {
 	test::TestMenu* testsMenu = new test::TestMenu(currentTest);
 	currentTest = testsMenu;
 	testsMenu->AddTest<test::TestClearColor>("Clear Color");
+	testsMenu->AddTest<test::TestTexture2D>("2D Texture");
 
 	GLCall(glEnable(GL_BLEND));
 	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
@@ -77,12 +79,12 @@ int main() {
 	while (!glfwWindowShouldClose(window)) {
 		renderer.Clear();
 		GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
-		myImGui.BeginFrame();
 		
 		
 		glfwPollEvents();
 		
 		
+		myImGui.BeginFrame();
 		if (currentTest) {
 			currentTest->OnUpdate(0.0f);
 			currentTest->OnRender();
@@ -94,9 +96,9 @@ int main() {
 			currentTest->OnImGuiRender();
 			ImGui::End();
 		}
+		myImGui.EndFrame();
 		
 
-		myImGui.EndFrame();
 		
 		glfwSwapBuffers(window);
 	}
