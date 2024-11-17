@@ -1,6 +1,6 @@
 #include<Application.h>
 
 int main() {
-	Application();
+	auto app = Application();
 	return 0;
 }

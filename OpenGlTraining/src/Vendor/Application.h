@@ -25,16 +25,18 @@
 #include "tests/TestTexture2D.h"
 class Application {
 	GLFWwindow* window;
-	float mixValue = 0.2f;
-	test::Test* currentTest = nullptr;
-	test::TestMenu* testsMenu = nullptr;
-	int width = 800, height = 800;
+	Renderer m_Renderer;
+	float m_MixValue = 0.2f;
+	test::Test* m_CurrentTest = nullptr;
+	test::TestMenu* m_TestsMenu = nullptr;
+	int m_Width = 800, m_Height = 800;
 public:
 
 
 	Application();
 	~Application();
 
+	void LoadImGui(myImGuiManager& myImGui);
 	float getRandom();
 	int glfwIniti();
 
@@ -42,10 +44,7 @@ public:
 
 	
 
-	void processInput(GLFWwindow* window);
-
-	// glfw: whenever the window size changed (by OS or user resize) this callback function executes
-	// ---------------------------------------------------------------------------------------------
+	void processInput();
 	void framebuffer_size_callback(int width, int height);
 };
 
