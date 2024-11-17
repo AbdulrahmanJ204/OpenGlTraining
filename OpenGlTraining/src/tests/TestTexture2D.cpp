@@ -12,9 +12,9 @@ test::TestTexture2D::TestTexture2D() :
 	float verticies[] = {
 		// position			   color						textures
 		0.0f   , 0.0f   ,1.0f, 1.0f, 0.0f, 0.0f, 1.0f,	0.0f , 0.0f ,
-		400.0f , 0.0f   ,1.0f, 0.0f, 1.0f, 0.0f, 1.0f,	1.0f , 0.0f ,
-		400.0f , 400.0f ,1.0f, 0.0f, 0.0f, 1.0f, 1.0f,	1.0f , 1.0f ,
-		0.0f   , 400.0f ,1.0f, 1.0f, 1.0f, 0.0f, 1.0f,	0.0f , 1.0f ,
+		800.0f , 0.0f   ,1.0f, 0.0f, 1.0f, 0.0f, 1.0f,	1.0f , 0.0f ,
+		800.0f , 800.0f ,1.0f, 0.0f, 0.0f, 1.0f, 1.0f,	1.0f , 1.0f ,
+		0.0f   , 800.0f ,1.0f, 1.0f, 1.0f, 0.0f, 1.0f,	0.0f , 1.0f ,
 	};
 	unsigned int indices2[] = {
 		0 , 1, 2,
@@ -44,8 +44,8 @@ test::TestTexture2D::TestTexture2D() :
 	m_MVP = m_Proj * m_View * m_Model;
 
 	GLCall(glEnable(GL_DEPTH_TEST));
-	GLCall(glEnable(GL_BLEND));
-	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+	//GLCall(glEnable(GL_BLEND));
+	//GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
 }
 

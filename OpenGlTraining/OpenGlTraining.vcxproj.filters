@@ -84,6 +84,9 @@
     <ClInclude Include="src\tests\TestTexture2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Vendor\Application.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\VertexBuffer.cpp">
@@ -92,7 +95,7 @@
     <ClCompile Include="src\VertexArray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Source.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GLErrorManager.cpp">
@@ -149,6 +152,9 @@
     <ClCompile Include="src\tests\TestTexture2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="res\shaders\Basic.shader">
@@ -178,9 +184,6 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\textures\sdf.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="C:\Users\abd alrahman\Desktop\container.jpg">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\textures\container.jpg">
