@@ -1,5 +1,6 @@
 #include "Texture.h"
 #include "stb_image/stb_image.h"
+#include <spdlog/spdlog.h>
 Texture::Texture(const std::string& filepath)
 	: m_RendererID(0), m_FilePath(filepath), m_LocalBuffer(0), m_Width(0), m_Height(0), m_BPP(0)
 {
@@ -20,12 +21,16 @@ Texture::Texture(const std::string& filepath)
 
 	// send data to opengl
 	// check docs.gl 
-	//                                                                            bits per channel / or bytes idk
+	// check learnopengl page 60 for more info.
 	GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_LocalBuffer));
+	//GLCall(glGenerateMipmap(GL_TEXTURE_2D));
 	Unbind();
 
-	if (m_LocalBuffer) // if it has data
+	if (m_LocalBuffer) // if it has data . free the memory (good practice)
 		stbi_image_free(m_LocalBuffer);
+	else {
+		spdlog::error("Failed to Load Texture");
+	}
 }
 
 Texture::~Texture()
@@ -33,7 +38,7 @@ Texture::~Texture()
 	GLCall(glDeleteTextures(1, &m_RendererID));
 }
 
-void Texture::Bind(unsigned int slot ) const
+void Texture::Bind(unsigned int slot) const
 {
 	// specify the slot;
 	GLCall(glActiveTexture(GL_TEXTURE0 + slot));

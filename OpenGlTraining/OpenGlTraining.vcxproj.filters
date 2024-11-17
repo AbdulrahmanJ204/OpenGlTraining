@@ -163,6 +163,9 @@
     <None Include="res\shaders\texture.shader">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="res\shaders\texture_color.shader">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\textures\photo.jpg">
@@ -175,6 +178,15 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\textures\sdf.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="C:\Users\abd alrahman\Desktop\container.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textures\container.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\textures\awesomeface.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

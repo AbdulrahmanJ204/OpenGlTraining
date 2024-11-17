@@ -210,10 +210,14 @@
     <None Include="res\shaders\Basic.shader" />
     <None Include="res\shaders\OutIn.shader" />
     <None Include="res\shaders\texture.shader" />
+    <None Include="res\shaders\texture_color.shader" />
     <None Include="res\shaders\Uniform.shader" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="C:\Users\abd alrahman\Desktop\container.jpg" />
     <Image Include="res\textures\a10.png" />
+    <Image Include="res\textures\awesomeface.png" />
+    <Image Include="res\textures\container.jpg" />
     <Image Include="res\textures\ghg.png" />
     <Image Include="res\textures\photo.jpg" />
     <Image Include="res\textures\sdf.png" />
