@@ -96,22 +96,14 @@ void Application::processInput()
 
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
 	{
-		m_MixValue += 0.01f; // change this value accordingly (might be too slow or too fast based on system hardware)
-		if (m_MixValue >= 1.0f)
-			m_MixValue = 1.0f;
+		
 	}
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
 	{
-		m_MixValue -= 0.01f; // change this value accordingly (might be too slow or too fast based on system hardware)
-		if (m_MixValue <= 0.0f)
-			m_MixValue = 0.0f;
+		
 	}
 }
 
-void Application::framebuffer_size_callback(int width, int height)
-{
-	glViewport(0, 0, width, height);
-}
 
 
 

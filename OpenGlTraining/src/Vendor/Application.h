@@ -32,36 +32,13 @@ class Application {
 	int m_Width = 800, m_Height = 800;
 public:
 
-
 	Application();
 	~Application();
+
+private:
 
 	void LoadImGui(myImGuiManager& myImGui);
 	float getRandom();
 	int glfwIniti();
-
-
-
-	
-
 	void processInput();
-	void framebuffer_size_callback(int width, int height);
 };
-
-//float vertices1[] = {
-//	-0.8f, -0.4f , 0.1f,      1.0f , 0.0f, 0.3f , 1.0f,
-//	 -0.01f, -0.4f ,0.1f,    0.0f, 1.0f, 0.0f , 1.0f,
-//	 -0.01f, 0.8f , 0.1f,     0.0f, 0.0f , 1.0f ,1.0f
-//};
-
-//float vertices1[] = {
-	//	-0.95f, -0.95f, 0.0f , 0.0f, 1.0f , 1.0f,
-	//	 0.95f, 0.0f, 0.0f, 0.0f, 1.0f , 1.0f,
-	//	 -0.95f, 0.95f,  0.0f, 0.0f , 1.0f ,1.0f
-	//};
-	// 
-	//float vertices2[] = {
-	//	 -0.4f , -0.4f,	0.0f,	 1.0f , 0.5f, 0.3f , 1.0f,
-	//	 0.8f , -0.4f,0.0f,	0.5f, 0.3f , 1.0f ,1.0f,
-	//	 0.01f , 0.4f,	0.0f,	 0.5f, 1.0f, 0.3f , 1.0f
-	//};
