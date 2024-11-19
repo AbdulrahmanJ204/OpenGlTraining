@@ -4,6 +4,7 @@
 #include "Shader.h"
 #include "IndexBuffer.h"
 #include "Texture.h"
+#include "Application.h"
 
 #include<glm/glm.hpp>	
 #include<glm/gtc/matrix_transform.hpp>
@@ -19,11 +20,15 @@ namespace test {
 		std::unique_ptr< IndexBuffer >m_EBO;
 		std::unique_ptr< Shader >m_Shader;
 		std::unique_ptr< Texture >m_Texture;
-		float m_Rotation = 0.0f , m_Rotation2 = 0.0f, m_Scale = 1.0f;
-		glm::mat4 m_Proj, m_View, m_Model , m_MVP;
-		glm::vec3 m_Translation , m_Translation2;
+		float m_Rotation = 0.0f, m_Rotation2 = 0.0f,
+			m_RotaionIncreamnt = 2.0f,
+			m_RotaionIncreamnt2 = 2.0f,
+			m_Scale = 1.0f;
+		glm::mat4 m_Proj, m_View, m_Model, m_MVP;
+		glm::vec3 m_Translation, m_Translation2;
 
 	public:
+		//float m_Width = Application::m_Width  , m_Height = Application::m_Height;
 		TestTexture2D();
 		~TestTexture2D();
 

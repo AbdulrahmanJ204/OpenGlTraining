@@ -24,13 +24,15 @@
 #include "tests/TestClearColor.h"
 #include "tests/TestTexture2D.h"
 class Application {
-	GLFWwindow* window;
+private:
 	Renderer m_Renderer;
 	float m_MixValue = 0.2f;
 	test::Test* m_CurrentTest = nullptr;
 	test::TestMenu* m_TestsMenu = nullptr;
-	int m_Width = 800, m_Height = 800;
-public:
+
+public :
+	static int m_Width , m_Height ;
+	static GLFWwindow* window;
 
 	Application();
 	~Application();
@@ -38,7 +40,7 @@ public:
 private:
 
 	void LoadImGui(myImGuiManager& myImGui);
+	void processInput();
 	float getRandom();
 	int glfwIniti();
-	void processInput();
 };

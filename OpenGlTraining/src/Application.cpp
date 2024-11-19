@@ -1,5 +1,8 @@
 #include<Application.h>
 
+int Application::m_Width = 1800; // Or your desired default value
+int Application::m_Height = 900; // Or your desired default value
+GLFWwindow* Application::window = nullptr; // Initialize to nullptr or as needed
 Application::Application()
 {
 
@@ -68,6 +71,10 @@ int Application::glfwIniti()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	
+
+	// for full screen
+	//window = glfwCreateWindow(m_Width, m_Height, "OPEN GL", glfwGetPrimaryMonitor(), NULL);
 	window = glfwCreateWindow(m_Width, m_Height, "OPEN GL", NULL, NULL);
 
 	if (window == NULL) {
