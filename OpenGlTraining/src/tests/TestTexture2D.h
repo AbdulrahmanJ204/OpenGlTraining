@@ -5,7 +5,7 @@
 #include "IndexBuffer.h"
 #include "Texture.h"
 #include "Application.h"
-
+#include<Cube.h>
 #include<glm/glm.hpp>	
 #include<glm/gtc/matrix_transform.hpp>
 
@@ -26,7 +26,7 @@ namespace test {
 			m_Scale = 1.0f;
 		glm::mat4 m_Proj, m_View, m_Model, m_MVP;
 		glm::vec3 m_Translation, m_Translation2;
-
+		Cube m_Cube;
 	public:
 		//float m_Width = Application::m_Width  , m_Height = Application::m_Height;
 		TestTexture2D();

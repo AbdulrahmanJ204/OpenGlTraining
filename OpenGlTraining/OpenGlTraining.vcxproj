@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Cube.h" />
     <ClInclude Include="src\myImGuiManager.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\Shader.h" />
@@ -185,6 +186,7 @@
     <ClInclude Include="src\tests\TestClearColor.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Cube.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\myImGuiManager.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
