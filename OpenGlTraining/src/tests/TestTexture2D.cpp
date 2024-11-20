@@ -15,11 +15,6 @@ test::TestTexture2D::TestTexture2D() :
 	m_Cube(100.0f)
 {
 
-	
-
-
-	
-	
 	m_Model = glm::translate(glm::mat4(1.0f), m_Translation);
 	m_Model = glm::rotate(m_Model, glm::radians(m_Rotation), glm::vec3(0.0f, 0.0f, 1.0f));
 	m_MVP = m_Proj * m_View * m_Model;
@@ -50,63 +45,50 @@ void test::TestTexture2D::OnUpdate(float deltaTime)
 
 void test::TestTexture2D::OnRender()
 {
-
-	GLCall(glClearColor(1.0f, 1.0f, 1.0f, 1.f));
-	GLCall(glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT));
-	//m_Shader->Bind();
-	//m_Model = glm::mat4(1.0f);
-	//m_Model = glm::translate(m_Model, m_Translation2);
-	//m_Model = glm::rotate(m_Model, glm::radians(m_Rotation2), glm::vec3(0.0f, 1.0f, 0.0f));
-	//m_Model = glm::translate(m_Model, m_Translation);
-	//m_Model = glm::rotate(m_Model, glm::radians(m_Rotation), glm::vec3(0.0f, 0.0f, 1.0f));
-	//m_Model = glm::scale(m_Model, glm::vec3(m_Scale, m_Scale, m_Scale));
-	//m_Model = glm::rotate(m_Model, glm::radians((float)glfwGetTime() * 0.1f), glm::vec3(0.0f, 1.0f, 0.0f));
-	//m_MVP = m_Proj * m_View * m_Model;
-
-	//m_Shader->setUniformMat4f("u_MVP", m_MVP);
-	m_Cube.draw();
-	Renderer renderer;
-	//renderer.Draw(*m_VAO, *m_EBO, *m_Shader);
+	GLCall(glClearColor(1.0f, 1.0f, 1.0f, 1.0f));
+	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+	glm::vec3 axis = glm::vec3(1.0f, 1.0f, 0.0f);
+	glm::vec3 pviot = glm::vec3(0.0f, 0.0f, 0.0f);
+	//m_Rotation = (float)glfwGetTime() * 25.0f;
+	m_Rotation = 1.0f;
+	const float radius = 10.0f;
+	float camX = sin(glfwGetTime()) * radius;
+	float camZ = cos(glfwGetTime()) * radius;
+	glm::mat4 view;
+	view = glm::lookAt(glm::vec3(camX, 0.0, camZ), glm::vec3(0.0, 0.0, 0.0),
+		glm::vec3(0.0, 1.0, 0.0));
+	m_Cube.SetView(view);
 	glm::vec3 cubePositions[] = {
- glm::vec3(0.0f, 0.0f, 0.0f),
- glm::vec3(2.0f, 5.0f,-15.0f),
- glm::vec3(-1.5f,-2.2f,-2.5f),
- glm::vec3(-3.8f,-2.0f,-12.3f),
- glm::vec3(2.4f,-0.4f,-3.5f),
- glm::vec3(-1.7f, 3.0f,-7.5f),
- glm::vec3(1.3f,-2.0f,-2.5f),
- glm::vec3(1.5f, 2.0f,-2.5f),
- glm::vec3(1.5f, 0.2f,-1.5f),
- glm::vec3(-1.3f, 1.0f,-1.5f)
+	 glm::vec3(1.0f, 2.0f, 5.0f),
+	 glm::vec3(2.0f, 5.0f,-15.0f),
+	 glm::vec3(-1.5f,-2.2f,-2.5f),
+	 glm::vec3(-3.8f,-2.0f,-12.3f),
+	 glm::vec3(2.4f,-0.4f,-3.5f),
+	 glm::vec3(-1.7f, 3.0f,-7.5f),
+	 glm::vec3(1.3f,-2.0f,2.5f),
+	 glm::vec3(1.5f, 2.0f,-2.5f),
+	 glm::vec3(1.5f, 0.2f,1.5f),
+	 glm::vec3(-1.3f, 1.0f,-1.5f)
 	};
-
-	//for (unsigned int i = 1; i < 10; i++)
-	//{
-	//	glm::mat4 model = glm::mat4(1.0f);
-	//	model = glm::translate(model, glm::vec3(m_Scale, m_Scale, m_Scale)* cubePositions[i]);
-	//	float angle = 20.0f * i;
-	//	if (i % 3 == 0)  // every 3rd iteration (including the first) we set the angle using GLFW's time function.
-	//		angle = (float)glfwGetTime() * 25.0f;
-	//	model = glm::rotate(model, glm::radians(angle),
-	//		glm::vec3(1.0f, 0.3f, 0.5f));
-	//	model = glm::scale(model, glm::vec3(m_Scale, m_Scale, m_Scale));
-	//	m_MVP = m_Proj * m_View * model;
-	//	m_Shader->setUniformMat4f("u_MVP", m_MVP);
-	//	GLCall(glDrawArrays(GL_TRIANGLES, 0, 36));
-	//}
-
-
+	//m_Cube.RotateAroundAxis(m_Rotation, axis, pviot);
+	//m_Cube.Rotate(m_Rotation, axis);
+	glm::vec3 sc = glm::vec3(m_Scale, m_Scale, m_Scale);
+	for (size_t i = 0; i < 10; i++)
+	{
+		glm::vec3 pos = glm::vec3(100.0f, 100.0f, 100.0f) * cubePositions[i];
+		m_Cube.Translate(pos);
+		m_Cube.Scale(sc);
+		m_Cube.draw();
+	}
 }
 
 void test::TestTexture2D::OnImGuiRender()
 {
-
 	ImGui::SliderFloat3("Translation", (float*)&m_Translation.x, -800.0f, 800.0f);
 	ImGui::SliderFloat3("Translation 2", (float*)&m_Translation2.x, -800.0f, 800.0f);
 	ImGui::SliderFloat("Rotation", (float*)&m_Rotation, 0.0f, 360.0f);
 	ImGui::SliderFloat("Rotation 2", (float*)&m_Rotation2, 0.0f, 360.0f);
 	ImGui::SliderFloat("Rotation Increament", (float*)&m_RotaionIncreamnt, 0.0f, 360.0f);
 	ImGui::SliderFloat("Rotation Increament2", (float*)&m_RotaionIncreamnt2, 0.0f, 360.0f);
-
-	ImGui::SliderFloat("Scale", (float*)&m_Scale, -10.0f, 1000.0f);
+	ImGui::SliderFloat("Scale", (float*)&m_Scale, -3.0f, 3.0f);
 }
