@@ -1,6 +1,6 @@
 #include "Window.h"
 
-GLFWwindow* Window::ptr = nullptr;
+GLFWwindow* Window::instancePtr = nullptr;
 int Window::s_Width = 800;          // Initialize with default width
 int Window::s_Height = 600;         // Initialize with default height
 bool Window::updateViewPort = true; // Default: viewport needs updating
@@ -43,7 +43,7 @@ bool Window::initGLFW()
 	glfwMakeContextCurrent(m_Window);
 	// v-sync
 	Window::SetVSync(1);
-	ptr = m_Window;
+	instancePtr = m_Window;
 	s_initalized = true;
 	return true;
 }
