@@ -1,0 +1,116 @@
+#include "core.h"
+#include"Application.h"
+#include "Cube.h"
+int Application::m_Width = 1800; // Or your desired default value
+int Application::m_Height = 900; // Or your desired default value
+GLFWwindow* Application::window = nullptr; // Initialize to nullptr or as needed
+Application::Application()
+{
+
+	spdlog::info("Starting Application");
+	if (glfwIniti()) {
+		return;
+	}
+
+	GLCall(glEnable(GL_DEPTH_TEST));
+	GLCall(glEnable(GL_BLEND));
+	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+	//myImGuiManager myImGui(window, m_Width, m_Height);
+	Cube cube(100.0f);
+		glm::vec3 axis(1.0f, 1.0f, 1.0f);
+	while (!glfwWindowShouldClose(window)) {
+		processInput();
+		m_Renderer.Clear();
+		GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
+
+		float degree = (float)glfwGetTime() * 25.0f;
+		
+		cube.Rotate(degree, axis);
+		cube.draw();
+
+		glfwPollEvents();
+		//LoadImGui(myImGui);
+		glfwSwapBuffers(window);
+	}
+
+}
+
+void Application::LoadImGui(myImGuiManager& myImGui)
+{
+	myImGui.BeginFrame();
+	
+	myImGui.EndFrame();
+}
+
+Application::~Application()
+{
+
+	
+	glfwDestroyWindow(window);
+	glfwTerminate();
+
+}
+
+float Application::getRandom()
+{
+	return (float)(rand() % 100) / 100;
+}
+
+int Application::glfwIniti()
+{
+	glfwInit();
+
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	
+
+	// for full screen
+	//window = glfwCreateWindow(m_Width, m_Height, "OPEN GL", glfwGetPrimaryMonitor(), NULL);
+	window = glfwCreateWindow(m_Width, m_Height, "OPEN GL", NULL, NULL);
+
+	if (window == NULL) {
+		spdlog::error("Failed to create GLFW window");
+		glfwTerminate();
+		return -1;
+	}
+
+	glfwMakeContextCurrent(window);
+	//glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window ,int width , int height )
+	//{
+	//	// make sure the viewport matches the new window dimensions; note that width and 
+	//	// height will be significantly larger than specified on retina displays.
+	//	glViewport(0, 0, width, height);
+	//	return;
+	//});
+	glfwSwapInterval(1);
+	// glad: load all OpenGL function pointers
+// ---------------------------------------
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	{
+		spdlog::error("Failed to initialize GLAD");
+		return -1;
+	}
+	return 0;
+}
+
+void Application::processInput()
+
+{
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, true);
+
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+	{
+		
+	}
+	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
+	{
+		
+	}
+}
+
+
+
+
+

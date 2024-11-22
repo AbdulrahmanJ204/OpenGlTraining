@@ -63,14 +63,14 @@ Cube::Cube(float sideLength) :
  -0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength, 0.0f,0.0f,
  -0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength, 0.0f,1.0f
 };
-	m_VBO = std::make_unique<VertexBuffer>(vertices, sizeof(vertices));
-	VertexBufferLayout layout;
+	m_VBO = std::make_unique<VBO>(vertices, sizeof(vertices));
+	VBOLayout layout;
 	layout.Push<float>(3);
 	layout.Push<float>(2);
-	m_VAO = std::make_unique<VertexArray>();
+	m_VAO = std::make_unique<VAO>();
 	m_VAO->AddBuffer(*m_VBO, layout);
-	m_Texture = std::make_unique<Texture>("res/textures/container.jpg");
-	m_Shader = std::make_unique<Shader>("res/shaders/texture.shader");
+	m_Texture = std::make_unique<Texture>("assets/textures/container.jpg");
+	m_Shader = std::make_unique<Shader>("assets/shaders/texture.shader");
 	m_Texture->Bind();
 	m_Shader->Bind();
 	m_Shader->SetUniform1i("u_Texture", 0); // 0 is slot number. it should match with slot we chose
@@ -125,7 +125,8 @@ void Cube::Scale(float scale) {
 
 
 void Cube::SetView(glm::mat4 view) {
-	m_View = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -400.0f))* view;
+	//m_View = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -400.0f))* view;
+	m_View = view;
 }
 void Cube::RotateAroundAxis(float angle, const glm::vec3& axis, const glm::vec3& pivot) {
 	// Step 1: Translate cube so that pivot becomes the origin

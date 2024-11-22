@@ -8,13 +8,10 @@
 // TODO: - check build output , why all that stuff is there.
 // TODO: check why order matters , maybe from chatgpt
 
-class Main {
-public:
-	static GLFWwindow* window;
-};
-GLFWwindow* Main::window = nullptr; 
+
+// TODO: - open chatgpt to last conversation , and implement Window class and Camera Class.
+
 int main() {
 	auto app = Application();
-	Main::window = Application::window;
 	return 0;
 }
