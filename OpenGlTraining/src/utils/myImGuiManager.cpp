@@ -3,6 +3,10 @@
 #include <string>
 
 
+myImGuiManager::myImGuiManager()
+{
+}
+
 myImGuiManager::myImGuiManager(GLFWwindow*& window, int& width, int& height)
     : m_Width(width), m_Height(height)
 {

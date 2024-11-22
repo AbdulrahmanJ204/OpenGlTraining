@@ -10,7 +10,7 @@ VAO::~VAO()
 	GLCall(glDeleteVertexArrays(1, &m_RendererID));
 }
 
-void VAO::AddBuffer(const VBO& vb, const VBOLayout& layout)
+void VAO::AddBuffer(const VBO& vb, const VBOLayout& layout) const
 {
 	Bind();
 	vb.Bind();
@@ -25,7 +25,7 @@ void VAO::AddBuffer(const VBO& vb, const VBOLayout& layout)
 	}
 }
 
-void VAO::Bind()
+void VAO::Bind() const
 {
 	GLCall(glBindVertexArray(m_RendererID));
 }

@@ -113,22 +113,13 @@
     <ClCompile Include="src\opengl\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\opengl\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\utils\myImGuiManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Application.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Cube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CameraExample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="vendor\imGui\imgui.cpp">
@@ -169,11 +160,21 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\shaders\Basic.shader" />
-    <None Include="assets\shaders\OutIn.shader" />
-    <None Include="assets\shaders\texture.shader" />
-    <None Include="assets\shaders\texture_color.shader" />
-    <None Include="assets\shaders\Uniform.shader" />
+    <None Include="assets\shaders\Basic.shader">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\shaders\OutIn.shader">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\shaders\texture.shader">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\shaders\texture_color.shader">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets\shaders\Uniform.shader">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\a10.png">

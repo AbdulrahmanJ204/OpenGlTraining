@@ -5,10 +5,12 @@ class myImGuiManager {
 private:
     int m_Width, m_Height;
 public:
+    myImGuiManager();
     myImGuiManager(GLFWwindow*& window, int& width, int& height);
     ~myImGuiManager();
    
-
+    myImGuiManager(myImGuiManager&&) noexcept = default;
+    myImGuiManager& operator=(myImGuiManager&&) noexcept = default;
     void BeginFrame();
 
     void EndFrame();

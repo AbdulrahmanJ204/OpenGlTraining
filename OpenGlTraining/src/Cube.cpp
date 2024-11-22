@@ -1,5 +1,8 @@
 #include "Cube.h"
-#include <Application.h>
+
+Cube::Cube()
+{
+}
 
 Cube::Cube(float sideLength) :
 	m_Length(sideLength),
@@ -10,9 +13,11 @@ Cube::Cube(float sideLength) :
 	m_Scale(glm::vec3(1.0f, 1.0f, 1.0f)),
 	m_MVP(glm::mat4(1.0f)),
 	m_Model(glm::mat4(1.0f)),
-	m_Proj(glm::perspective(glm::radians(45.0f), (float)Application::m_Width / Application::m_Height, 0.1f, 2000.0f)),
 	m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -400.0f)))
 {
+	int width, height;
+	glfwGetWindowSize(glfwGetCurrentContext(), &width, &height);
+	m_Proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 2000.0f);
 	float vertices[] = {
  
  -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength, 0.0f,0.0f,
@@ -69,7 +74,7 @@ Cube::Cube(float sideLength) :
 	layout.Push<float>(2);
 	m_VAO = std::make_unique<VAO>();
 	m_VAO->AddBuffer(*m_VBO, layout);
-	m_Texture = std::make_unique<Texture>("assets/textures/container.jpg");
+	m_Texture = std::make_unique<Texture>("assets/textures/shuriken.png");
 	m_Shader = std::make_unique<Shader>("assets/shaders/texture.shader");
 	m_Texture->Bind();
 	m_Shader->Bind();

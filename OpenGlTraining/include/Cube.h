@@ -21,7 +21,12 @@ private:
 	glm::vec3 m_Axis , m_Translate , m_Scale;
 	
 public:
+	Cube();
 	Cube(float sideLength);
+
+	// Allow moving
+	Cube(Cube&&) noexcept = default;
+	Cube& operator=(Cube&&) noexcept = default;
 	~Cube();
 	void draw();
 	void Rotate(float degree, glm::vec3& axis);

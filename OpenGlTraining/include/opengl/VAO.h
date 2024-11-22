@@ -11,8 +11,8 @@ public:
 	~VAO();
 
 	
-	void AddBuffer(const VBO& vb, const VBOLayout& layout);
-	void Bind();
+	void AddBuffer(const VBO& vb, const VBOLayout& layout) const;
+	void Bind() const;
 	void Unbind();
 	
 };
