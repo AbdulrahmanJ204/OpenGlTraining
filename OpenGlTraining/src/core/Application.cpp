@@ -1,22 +1,24 @@
 #include"Application.h"
-
+Application* Application::instancePtr = nullptr;
 Application::Application()
-	:window("Test", 1800, 900)
+	:
+	lastX(0.0f) , lastY(0.0f),
+	window("Test", 1800, 900)
 {
 	spdlog::info("Starting Application");	
+	instancePtr = this;
 	
-}
-
-void Application::LoadImGui(myImGuiManager& myImGui)
-{
-	/*myImGui.BeginFrame();
-	myImGui.EndFrame();*/
 }
 
 Application::~Application()
 {
 
-
+	instancePtr = nullptr;
+}
+void Application::LoadImGui(myImGuiManager& myImGui)
+{
+	/*myImGui.BeginFrame();
+	myImGui.EndFrame();*/
 }
 
 void Application::run() {
@@ -25,20 +27,32 @@ void Application::run() {
 	GLCall(glEnable(GL_DEPTH_TEST));
 	GLCall(glEnable(GL_BLEND));
 	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-	Cube cube(100.0f);
+	lastX = window.getWidth() / 2.0f;
+	lastY = window.getHeight() / 2.0f;
+	
 	glm::vec3 axis = glm::vec3(1.0f, 1.0f, 1.0f);
 		float angle =  35.0f;
-	while (!Window::ShouldClose()) {
+		
+	while (! window.shouldClose()) {
 		GLCall(glClearColor(0.3f, 0.5f, 0.8f, 1.0f));
 		m_Renderer.Clear();
+
+		float currentFrame = static_cast<float>(glfwGetTime());
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+
 		//float angle = (float)glfwGetTime() * 50.0f;
-		cube.Rotate(angle++, axis);
-		cube.draw();
+		scene.render();
+		
+		
 		glfwPollEvents();
 		//LoadImGui(myImGui);
-		window.Update();
+		window.swapBuffers();
 	}
 
+}
+void Application::processInput()
+{
 }
 float Application::getRandom()
 {
@@ -48,23 +62,25 @@ float Application::getRandom()
 
 
 
-void Application::processInput()
-
-{/*
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, true);
-
-	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-	{
-		
-	}
-	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-	{
-		
-	}*/
+void Application::onKeyEvent(int32_t key, int32_t scancode, int32_t action, int32_t mode) {
+	scene.onKeyEvent(key , scancode, action  , mode, deltaTime);
 }
 
 
+void Application::onCursorPositionEvent(double x, double y) {
+	static double lastX = x;
+	static double lastY = y;
 
+	/*if (shouldResetMouse) {
+		shouldResetMouse = false;
+		lastX = x;
+		lastY = y;
+	}*/
 
+	/*float yaw = camera.getYaw() + static_cast<float>(-lastX + x) * mouseSensitivity;
+	float pitch = glm::clamp(camera.getPitch() + static_cast<float>(lastY - y) * mouseSensitivity, -89.0f, 89.0f);
+	camera.updateCameraOrientation(yaw, pitch);*/
 
+	lastX = x;
+	lastY = y;
+}

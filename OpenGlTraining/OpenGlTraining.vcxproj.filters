@@ -33,7 +33,7 @@
     <ClInclude Include="include\opengl\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\Renderer.h">
+    <ClInclude Include="include\Scene\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\opengl\Texture.h">
@@ -48,7 +48,7 @@
     <ClInclude Include="include\Cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\core\Camera.h">
+    <ClInclude Include="include\Scene\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="vendor\imGui\imconfig.h">
@@ -88,6 +88,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\core_utils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Scene\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -149,13 +152,16 @@
     <ClCompile Include="src\core\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\Camera.cpp">
+    <ClCompile Include="src\Scene\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\Renderer.cpp">
+    <ClCompile Include="src\Scene\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\core\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Scene\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -177,22 +183,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="assets\textures\a10.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="assets\textures\awesomeface.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\textures\container.jpg">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\textures\ghg.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="assets\textures\photo.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="assets\textures\sdf.png">
+    <Image Include="assets\textures\shuriken.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

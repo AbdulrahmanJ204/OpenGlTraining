@@ -1,9 +1,6 @@
-#ifndef CAMERA_H
-#define CAMERA_H
+#pragma once
 
 #include "core.h"
-
-
 // Defines several possible options for camera movement. Used as abstraction to stay away from window-system specific input methods
 enum Camera_Movement {
     FORWARD,
@@ -15,7 +12,7 @@ enum Camera_Movement {
 // Default camera values
 const float YAW = -90.0f;
 const float PITCH = 0.0f;
-const float SPEED = 2.5f;
+const float SPEED = 200.5f;
 const float SENSITIVITY = 0.1f;
 const float ZOOM = 45.0f;
 
@@ -58,7 +55,7 @@ public:
     }
 
     // returns the view matrix calculated using Euler Angles and the LookAt Matrix
-    glm::mat4 GetViewMatrix()
+    glm::mat4 GetViewMatrix() const
     {
         return glm::lookAt(Position, Position + Front, Up);
     }
@@ -124,4 +121,3 @@ private:
         Up = glm::normalize(glm::cross(Right, Front));
     }
 };
-#endif
