@@ -14,7 +14,10 @@ private:
 	std::unordered_map<std::string, int> m_UniformLoactionCache;
 public:
 	Shader(const std::string& filepath);
+	Shader(const std::string& vertexPath, const std::string& fragmentPath);
 	~Shader();
+
+
 	void Bind() const;
 	void Unbind() const;
 	void SetUniform1i(const std::string& name,int value);
@@ -28,7 +31,8 @@ public:
 private:
 	unsigned int CompileShader(unsigned int type, const std::string source);
 	unsigned int CreateShader(const std::string& vertexShader, const std::string& fragmentShader);
-	ShaderSource ParseShader(const std::string& filepath);
+	ShaderSource ParseShader(const std::string& filepath) const;
 	int getUniformLoacation(const std :: string& name );
-};
+	std::string readShader(const std::string& path) const;
+};	
 

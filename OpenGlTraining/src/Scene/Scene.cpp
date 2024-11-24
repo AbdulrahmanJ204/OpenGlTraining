@@ -21,7 +21,6 @@ void Scene::onKeyEvent(int32_t key, int32_t scancode, int32_t action, int32_t mo
 	bool isButtonPressed = action == GLFW_PRESS;
 
 	if (key == GLFW_KEY_W || key == GLFW_KEY_UP) {
-		std::cout << "Pressed " << key << std::endl;
 		camera.ProcessKeyboard(FORWARD, deltaTime);
 	}
 	else if (key == GLFW_KEY_S || key == GLFW_KEY_DOWN) {

@@ -11,11 +11,31 @@ Shader::Shader(const std::string& filepath) : m_FilePath(filepath) , m_RendererI
 	m_RendererID = CreateShader(shaderSource.vertexSource, shaderSource.FragmentSource);
 }
 
+Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
+{	
+	m_FilePath = "Vertex Shader Path : " + vertexPath +
+		" Fragment Shader Path : " + fragmentPath;
+	ShaderSource shaderSource;
+	shaderSource.vertexSource = readShader(vertexPath);
+	shaderSource.FragmentSource=readShader(fragmentPath);
+	m_RendererID = CreateShader(shaderSource.vertexSource, shaderSource.FragmentSource);
+}
+
 Shader::~Shader()
 {
 	GLCall(glDeleteProgram(m_RendererID));
 }
 
+std::string Shader::readShader(const std::string& path) const
+{
+	std::fstream stream(path);
+	std::string line;
+	std::string s = "";
+	while (getline(stream, line)) {
+			s+= line + "\n";
+	}
+	return s;
+}
 void Shader::Bind() const
 {
 	GLCall(glUseProgram(m_RendererID));
@@ -79,7 +99,7 @@ unsigned int Shader::CreateShader(const std::string& vertexShader, const std::st
 	return program;
 }
 
-ShaderSource Shader::ParseShader(const std::string& filepath)
+ShaderSource Shader::ParseShader(const std::string& filepath) const
 {
 	std::fstream stream(m_FilePath);
 	std::string line;
@@ -140,3 +160,5 @@ int Shader::getUniformLoacation(const std::string& name)
 	m_UniformLoactionCache[name] = location;
 	return location;
 }
+
+

@@ -74,12 +74,14 @@ Cube::Cube(float sideLength) :
 	layout.Push<float>(2);
 	m_VAO = std::make_unique<VAO>();
 	m_VAO->AddBuffer(*m_VBO, layout);
-	m_Texture = std::make_unique<Texture>("assets/textures/shuriken.png");
-	m_Shader = std::make_unique<Shader>("assets/shaders/texture.shader");
+	m_Texture = std::make_unique<Texture>("assets/textures/container.jpg");
+	m_Shader = std::make_unique<Shader>("assets/shaders/camera.vs" ,"assets/shaders/camera.fs");
 	m_Texture->Bind();
 	m_Shader->Bind();
 	m_Shader->SetUniform1i("u_Texture", 0); // 0 is slot number. it should match with slot we chose
-	m_Shader->setUniformMat4f("u_MVP", glm::mat4(1.0f));
+	m_Shader->setUniformMat4f("model", m_Model);
+	m_Shader->setUniformMat4f("view", m_View);
+	m_Shader->setUniformMat4f("projection", m_Proj);
 
 }
 
@@ -92,9 +94,13 @@ void Cube::draw()
 	m_Texture->Bind();
 	m_Shader->Bind();
 	m_Shader->SetUniform1i("u_Texture", 0); // 0 is slot number. it should match with slot we chose
-	m_MVP = m_Proj * m_View * m_Model;
-	m_Shader->setUniformMat4f("u_MVP", m_MVP);
+	updateUniforms();
 	GLCall(glDrawArrays(GL_TRIANGLES, 0, 36));
+}
+void Cube::updateUniforms() {
+	m_Shader->setUniformMat4f("model", m_Model);
+	m_Shader->setUniformMat4f("view", m_View);
+	m_Shader->setUniformMat4f("projection", m_Proj);
 }
 void Cube::Rotate(float degree , glm::vec3& axis) {
 	m_Model = glm::rotate(m_Model, glm::radians(-m_Degree), m_Axis);

@@ -29,6 +29,7 @@ public:
 	Cube& operator=(Cube&&) noexcept = default;
 	~Cube();
 	void draw();
+	void updateUniforms();
 	void Rotate(float degree, glm::vec3& axis);
 	void Translate(glm::vec3& translate);
 	void Scale(glm::vec3& scale);

@@ -181,6 +181,8 @@
     <None Include="assets\shaders\Uniform.shader">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="assets\shaders\camera.fs" />
+    <None Include="assets\shaders\camera.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\awesomeface.png">
