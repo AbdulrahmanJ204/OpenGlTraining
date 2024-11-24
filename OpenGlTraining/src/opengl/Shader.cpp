@@ -5,19 +5,19 @@
 #include<fstream>
 #include<string>
 
-Shader::Shader(const std::string& filepath) : m_FilePath(filepath) , m_RendererID(0)
+Shader::Shader(const std::string& filepath) : m_FilePath(filepath), m_RendererID(0)
 {
 	ShaderSource shaderSource = ParseShader(filepath);
 	m_RendererID = CreateShader(shaderSource.vertexSource, shaderSource.FragmentSource);
 }
 
 Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
-{	
+{
 	m_FilePath = "Vertex Shader Path : " + vertexPath +
 		" Fragment Shader Path : " + fragmentPath;
 	ShaderSource shaderSource;
 	shaderSource.vertexSource = readShader(vertexPath);
-	shaderSource.FragmentSource=readShader(fragmentPath);
+	shaderSource.FragmentSource = readShader(fragmentPath);
 	m_RendererID = CreateShader(shaderSource.vertexSource, shaderSource.FragmentSource);
 }
 
@@ -32,7 +32,7 @@ std::string Shader::readShader(const std::string& path) const
 	std::string line;
 	std::string s = "";
 	while (getline(stream, line)) {
-			s+= line + "\n";
+		s += line + "\n";
 	}
 	return s;
 }
@@ -76,14 +76,14 @@ unsigned int Shader::CompileShader(unsigned int type, const std::string source)
 		return 0;
 	}
 	return id;
-	
+
 }
 
 unsigned int Shader::CreateShader(const std::string& vertexShader, const std::string& fragmentShader)
 {
 	unsigned int program = glCreateProgram();
 	unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
-	unsigned int fs =CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
+	unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
 
 	// attach shaders to program
 	glAttachShader(program, vs);
@@ -127,15 +127,25 @@ ShaderSource Shader::ParseShader(const std::string& filepath) const
 
 void Shader::SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3)
 {
-		GLCall(glUniform4f(getUniformLoacation(name), v0, v1, v2, v3));
+	GLCall(glUniform4f(getUniformLoacation(name), v0, v1, v2, v3));
 }
 void Shader::setUniformMat4f(const std::string& name, const glm::mat4& matrix)
 {
-		GLCall(glUniformMatrix4fv(getUniformLoacation(name) , 1 , GL_FALSE , &matrix[0][0])); // location , how many matrix ary we providing , something about array format , pointer to the first elemnt in array
+	GLCall(glUniformMatrix4fv(getUniformLoacation(name), 1, GL_FALSE, &matrix[0][0])); // location , how many matrix ary we providing , something about array format , pointer to the first elemnt in array
 }
 void Shader::SetUniform4fv(const std::string& name, glm::vec4 vec)
 {
 	GLCall(glUniform4fv(getUniformLoacation(name), 1, &vec[0]));
+}
+
+void Shader::SetUniform3f(const std::string& name, float v0, float v1, float v2)
+{
+	GLCall(glUniform3f(getUniformLoacation(name), v0, v1, v2));
+}
+
+void Shader::SetUniform3fv(const std::string& name, glm::vec3 vec)
+{
+	GLCall(glUniform3fv(getUniformLoacation(name), 1, &vec[0]));
 }
 
 void Shader::SetUniform1i(const std::string& name, int value)
@@ -153,10 +163,10 @@ int Shader::getUniformLoacation(const std::string& name)
 	if (m_UniformLoactionCache.find(name) != m_UniformLoactionCache.end())
 		return m_UniformLoactionCache[name];
 	int location;
-	GLCall(location = glGetUniformLocation(m_RendererID, name.c_str(	)));
-	
-	if(location == -1)
-	std::cout << "Warining: unifrom ' " << name << "' doesn't exist"<<std::endl;
+	GLCall(location = glGetUniformLocation(m_RendererID, name.c_str()));
+
+	if (location == -1)
+		std::cout << "Warining: unifrom ' " << name << "' doesn't exist" << std::endl;
 	m_UniformLoactionCache[name] = location;
 	return location;
 }

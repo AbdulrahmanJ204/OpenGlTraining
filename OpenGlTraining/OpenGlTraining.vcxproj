@@ -213,8 +213,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\Basic.shader" />
-    <None Include="assets\shaders\camera.fs" />
-    <None Include="assets\shaders\camera.vs" />
+    <None Include="assets\shaders\vertex.vert" />
+    <None Include="assets\shaders\fragment.frag" />
     <None Include="assets\shaders\OutIn.shader" />
     <None Include="assets\shaders\texture.shader" />
     <None Include="assets\shaders\texture_color.shader" />

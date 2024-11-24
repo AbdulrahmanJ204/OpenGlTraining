@@ -11,77 +11,78 @@ Cube::Cube(float sideLength) :
 	m_Axis(glm::vec3(1.0f, 1.0f, 1.0f)),
 	m_Translate(glm::vec3(1.0f, 1.0f, 1.0f)),
 	m_Scale(glm::vec3(1.0f, 1.0f, 1.0f)),
-	m_MVP(glm::mat4(1.0f)),
+	m_CubeColor(glm::vec3(1.0f, 0.5f, 0.31f)),
+	m_LightColor(glm::vec3(1.0f, 1.0f, 1.0f)),
+	m_LightPos(glm::vec3(100.0f, 200.0f, 200.0f)),
 	m_Model(glm::mat4(1.0f)),
-	m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -400.0f)))
+	m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.0f)))
 {
 	int width, height;
 	glfwGetWindowSize(glfwGetCurrentContext(), &width, &height);
 	m_Proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 2000.0f);
 	float vertices[] = {
  
- -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength, 0.0f,0.0f,
-  0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength, 1.0f,0.0f,
-  0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength, 1.0f,1.0f,
-  0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength, 1.0f,1.0f,
+ -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength,  0.0f, 0.0f,-1.0f,  0.0f,0.0f,
+  0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength,  0.0f, 0.0f,-1.0f,  1.0f,0.0f,
+  0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength,  0.0f, 0.0f,-1.0f,  1.0f,1.0f,
+  0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength,  0.0f, 0.0f,-1.0f,  1.0f,1.0f,
 
- -0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength, 0.0f,1.0f,
- -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength, 0.0f,0.0f,
- -0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength, 0.0f,0.0f,
-  0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength, 1.0f,0.0f,
+ -0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength,  0.0f, 0.0f,-1.0f,  0.0f,1.0f,
+ -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength,  0.0f, 0.0f,-1.0f,  0.0f,0.0f,
+ -0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength,  0.0f, 0.0f, 1.0f,  0.0f,0.0f,
+  0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength,  0.0f, 0.0f, 1.0f,  1.0f,0.0f,
 
  
-  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength, 1.0f,1.0f,
-  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength, 1.0f,1.0f,
- -0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength, 0.0f,1.0f,
- -0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength, 0.0f,0.0f,
+  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength,  0.0f, 0.0f, 1.0f, 1.0f,1.0f,
+  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength,  0.0f, 0.0f, 1.0f, 1.0f,1.0f,
+ -0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength,  0.0f, 0.0f, 1.0f, 0.0f,1.0f,
+ -0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength,  0.0f, 0.0f, 1.0f, 0.0f,0.0f,
  
- -0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength, 1.0f,0.0f,
- -0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength, 1.0f,1.0f,
- -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength, 0.0f,1.0f,
- -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength, 0.0f,1.0f,
+ -0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength, -1.0f, 0.0f, 0.0f, 1.0f,0.0f,
+ -0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength, -1.0f, 0.0f, 0.0f, 1.0f,1.0f,
+ -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength, -1.0f, 0.0f, 0.0f, 0.0f,1.0f,
+ -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength, -1.0f, 0.0f, 0.0f, 0.0f,1.0f,
  
- -0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength, 0.0f,0.0f,
- -0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength, 1.0f,0.0f,
-  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength, 1.0f,0.0f,
-  0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength, 1.0f,1.0f,
+ -0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength, -1.0f, 0.0f, 0.0f, 0.0f,0.0f,
+ -0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength, -1.0f, 0.0f, 0.0f, 1.0f,0.0f,
+  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength,  1.0f, 0.0f, 0.0f, 1.0f,0.0f,
+  0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength,  1.0f, 0.0f, 0.0f, 1.0f,1.0f,
   
  
-  0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength, 0.0f,1.0f,
-  0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength, 0.0f,1.0f,
-  0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength, 0.0f,0.0f,
-  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength, 1.0f,0.0f,
+  0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength,  1.0f, 0.0f, 0.0f, 0.0f,1.0f,
+  0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength,  1.0f, 0.0f, 0.0f, 0.0f,1.0f,
+  0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength,  1.0f, 0.0f, 0.0f, 0.0f,0.0f,
+  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength,  1.0f, 0.0f, 0.0f, 1.0f,0.0f,
  
- -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength, 0.0f,1.0f,
-  0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength, 1.0f,1.0f,
-  0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength, 1.0f,0.0f,
-  0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength, 1.0f,0.0f,
+ -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength,  0.0f,-1.0f, 0.0f, 0.0f,1.0f,
+  0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength,  0.0f,-1.0f, 0.0f, 1.0f,1.0f,
+  0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength,  0.0f,-1.0f, 0.0f, 1.0f,0.0f,
+  0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength,  0.0f,-1.0f, 0.0f, 1.0f,0.0f,
  
- -0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength, 0.0f,0.0f,
- -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength, 0.0f,1.0f,
- -0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength, 0.0f,1.0f,
-  0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength, 1.0f,1.0f,
+ -0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength,  0.0f,-1.0f, 0.0f, 0.0f,0.0f,
+ -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength,  0.0f,-1.0f, 0.0f, 0.0f,1.0f,
+ -0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength,  0.0f, 1.0f, 0.0f, 0.0f,1.0f,
+  0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength,  0.0f, 1.0f, 0.0f, 1.0f,1.0f,
  
 
-  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength, 1.0f,0.0f,
-  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength, 1.0f,0.0f,
- -0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength, 0.0f,0.0f,
- -0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength, 0.0f,1.0f
+  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength,  0.0f, 1.0f, 0.0f, 1.0f,0.0f,
+  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength,  0.0f, 1.0f, 0.0f, 1.0f,0.0f,
+ -0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength,  0.0f, 1.0f, 0.0f, 0.0f,0.0f,
+ -0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength,  0.0f, 1.0f, 0.0f, 0.0f,1.0f
 };
 	m_VBO = std::make_unique<VBO>(vertices, sizeof(vertices));
 	VBOLayout layout;
+	layout.Push<float>(3);
 	layout.Push<float>(3);
 	layout.Push<float>(2);
 	m_VAO = std::make_unique<VAO>();
 	m_VAO->AddBuffer(*m_VBO, layout);
 	m_Texture = std::make_unique<Texture>("assets/textures/container.jpg");
-	m_Shader = std::make_unique<Shader>("assets/shaders/camera.vs" ,"assets/shaders/camera.fs");
-	m_Texture->Bind();
+	m_Shader = std::make_unique<Shader>("assets/shaders/vertex.vert" ,"assets/shaders/fragment.frag");
+	//m_Texture->Bind();
 	m_Shader->Bind();
-	m_Shader->SetUniform1i("u_Texture", 0); // 0 is slot number. it should match with slot we chose
-	m_Shader->setUniformMat4f("model", m_Model);
-	m_Shader->setUniformMat4f("view", m_View);
-	m_Shader->setUniformMat4f("projection", m_Proj);
+	//m_Shader->SetUniform1i("u_Texture", 0); // 0 is slot number. it should match with slot we chose
+	updateUniforms();
 
 }
 
@@ -91,16 +92,21 @@ Cube::~Cube()
 
 void Cube::draw()
 {
-	m_Texture->Bind();
+	//m_Texture->Bind();
 	m_Shader->Bind();
-	m_Shader->SetUniform1i("u_Texture", 0); // 0 is slot number. it should match with slot we chose
+	//m_Shader->SetUniform1i("u_Texture", 0); // 0 is slot number. it should match with slot we chose
 	updateUniforms();
 	GLCall(glDrawArrays(GL_TRIANGLES, 0, 36));
 }
 void Cube::updateUniforms() {
+	m_Shader->Bind();
+	m_Shader->SetUniform3fv("objectColor", m_CubeColor);
+	m_Shader->SetUniform3fv("lightColor", m_LightColor);
+	m_Shader->SetUniform3fv("lightPos", m_LightPos);
 	m_Shader->setUniformMat4f("model", m_Model);
 	m_Shader->setUniformMat4f("view", m_View);
 	m_Shader->setUniformMat4f("projection", m_Proj);
+	
 }
 void Cube::Rotate(float degree , glm::vec3& axis) {
 	m_Model = glm::rotate(m_Model, glm::radians(-m_Degree), m_Axis);
@@ -138,6 +144,12 @@ void Cube::Scale(float scale) {
 void Cube::SetView(glm::mat4 view) {
 	//m_View = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -400.0f))* view;
 	m_View = view;
+	updateUniforms();
+}
+void Cube::SetProj(glm::mat4 proj) {
+	//m_View = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -400.0f))* view;
+	m_Proj = proj;
+	updateUniforms();
 }
 void Cube::RotateAroundAxis(float angle, const glm::vec3& axis, const glm::vec3& pivot) {
 	// Step 1: Translate cube so that pivot becomes the origin

@@ -32,7 +32,7 @@ void Application::run() {
 		float angle =  35.0f;
 		
 	while (! window.shouldClose()) {
-		GLCall(glClearColor(0.3f, 0.5f, 0.8f, 1.0f));
+		GLCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
 		m_Renderer.Clear();
 
 		float currentFrame = static_cast<float>(glfwGetTime());

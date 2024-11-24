@@ -18,12 +18,21 @@ public:
 	~Shader();
 
 
+	// TODO : convert vec2 , 3 , 4 to & if always passing a defined vec3	
 	void Bind() const;
 	void Unbind() const;
 	void SetUniform1i(const std::string& name,int value);
 	void SetUniform1f(const std::string& name,float value);
+	
+	//void SetUniform2f(const std::string& name, float v0, float v1, float v2);
+	//void SetUniform2fv(const std::string& name, glm::vec3 vec);
+	
+	void SetUniform3f(const std::string& name, float v0, float v1, float v2);// convert to vec4 when using math
+	void SetUniform3fv(const std::string& name, glm::vec3 vec);
+	
 	void SetUniform4f(const std::string& name, float v0, float v1, float v2, float v3);// convert to vec4 when using math
-	void SetUniform4fv(const std::string& name, glm::vec4 vec);// convert to vec4 when using math
+	void SetUniform4fv(const std::string& name, glm::vec4 vec);
+	
 	void setUniformMat4f(const std::string& name, const glm::mat4& matrix);
 
 	

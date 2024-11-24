@@ -94,8 +94,8 @@ void Window::onRefreshWindow(GLFWwindow*) {
 void Window::setupCallbacks() {
 	
 	glfwSetKeyCallback(m_Window, onKeyEvent);
-	glfwSetMouseButtonCallback(m_Window, onMouseButtonEvent);
-	glfwSetCursorPosCallback(m_Window, onCursorPosition);
+	//glfwSetMouseButtonCallback(m_Window, onMouseButtonEvent);
+	//glfwSetCursorPosCallback(m_Window, onCursorPosition);
 	glfwSetFramebufferSizeCallback(m_Window, onResized);
 //
 //#ifndef BUILD_TYPE_DIST
