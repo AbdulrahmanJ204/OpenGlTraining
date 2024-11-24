@@ -11,6 +11,7 @@ public:
 	
 	inline void swapBuffers() { glfwSwapBuffers(m_Window);}
 	
+	inline GLFWwindow* getWindow () const { return m_Window; };
 	inline Window& instance() { return *instancePtr; }
 	static inline int getWidth() { return s_Width; }
 	static inline int getHeight(){ return s_Height; }
@@ -23,7 +24,6 @@ public:
 	static void onMouseButtonEvent(GLFWwindow* window, int32_t button, int32_t action, int32_t mods);
 	static void onCursorPosition(GLFWwindow* window, double x, double y);
 	static void onRefreshWindow(GLFWwindow* window);
-
 	static void onWindowError(int32_t errorCode, const char* description);
 	//static void onOpenGlMessage(GLenum source,
 	//	GLenum type,

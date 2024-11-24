@@ -366,14 +366,14 @@ typedef khronos_uint16_t GLhalf;
 typedef void (APIENTRYP PFNGLGETBOOLEANI_VPROC) (GLenum target, GLuint index, GLboolean *data);
 typedef void (APIENTRYP PFNGLGETINTEGERI_VPROC) (GLenum target, GLuint index, GLint *data);
 typedef const GLubyte *(APIENTRYP PFNGLGETSTRINGIPROC) (GLenum name, GLuint index);
-typedef void (APIENTRYP PFNGLBINDVAOPROC) (GLuint array);
-typedef void (APIENTRYP PFNGLDELETEVAOSPROC) (GLsizei n, const GLuint *arrays);
-typedef void (APIENTRYP PFNGLGENVAOSPROC) (GLsizei n, GLuint *arrays);
+typedef void (APIENTRYP PFNGLBINDVERTEXARRAYPROC) (GLuint array);
+typedef void (APIENTRYP PFNGLDELETEVERTEXARRAYSPROC) (GLsizei n, const GLuint *arrays);
+typedef void (APIENTRYP PFNGLGENVERTEXARRAYSPROC) (GLsizei n, GLuint *arrays);
 #ifdef GL_GLEXT_PROTOTYPES
 GLAPI const GLubyte *APIENTRY glGetStringi (GLenum name, GLuint index);
-GLAPI void APIENTRY glBindVAO (GLuint array);
-GLAPI void APIENTRY glDeleteVAOs (GLsizei n, const GLuint *arrays);
-GLAPI void APIENTRY glGenVAOs (GLsizei n, GLuint *arrays);
+GLAPI void APIENTRY glBindVertexArray (GLuint array);
+GLAPI void APIENTRY glDeleteVertexArrays (GLsizei n, const GLuint *arrays);
+GLAPI void APIENTRY glGenVertexArrays (GLsizei n, GLuint *arrays);
 #endif
 #endif /* GL_VERSION_3_0 */
 #ifndef GL_VERSION_3_1
@@ -433,8 +433,8 @@ typedef void *GLeglImageOES;
 typedef void (APIENTRYP PFNGLGETFLOATI_VEXTPROC) (GLenum pname, GLuint index, GLfloat *params);
 typedef void (APIENTRYP PFNGLGETDOUBLEI_VEXTPROC) (GLenum pname, GLuint index, GLdouble *params);
 typedef void (APIENTRYP PFNGLGETPOINTERI_VEXTPROC) (GLenum pname, GLuint index, void **params);
-typedef void (APIENTRYP PFNGLGETVAOINTEGERI_VEXTPROC) (GLuint vaobj, GLuint index, GLenum pname, GLint *param);
-typedef void (APIENTRYP PFNGLGETVAOPOINTERI_VEXTPROC) (GLuint vaobj, GLuint index, GLenum pname, void **param);
+typedef void (APIENTRYP PFNGLGETVERTEXARRAYINTEGERI_VEXTPROC) (GLuint vaobj, GLuint index, GLenum pname, GLint *param);
+typedef void (APIENTRYP PFNGLGETVERTEXARRAYPOINTERI_VEXTPROC) (GLuint vaobj, GLuint index, GLenum pname, void **param);
 #endif /* GL_EXT_direct_state_access */
 #ifndef GL_NV_draw_vulkan_image
 typedef void (APIENTRY  *GLVULKANPROCNV)(void);
@@ -485,7 +485,7 @@ union ImGL3WProcs {
         PFNGLBINDBUFFERPROC               BindBuffer;
         PFNGLBINDSAMPLERPROC              BindSampler;
         PFNGLBINDTEXTUREPROC              BindTexture;
-        PFNGLBINDVAOPROC          BindVAO;
+        PFNGLBINDVERTEXARRAYPROC          BindVertexArray;
         PFNGLBLENDEQUATIONPROC            BlendEquation;
         PFNGLBLENDEQUATIONSEPARATEPROC    BlendEquationSeparate;
         PFNGLBLENDFUNCSEPARATEPROC        BlendFuncSeparate;
@@ -500,7 +500,7 @@ union ImGL3WProcs {
         PFNGLDELETEPROGRAMPROC            DeleteProgram;
         PFNGLDELETESHADERPROC             DeleteShader;
         PFNGLDELETETEXTURESPROC           DeleteTextures;
-        PFNGLDELETEVAOSPROC       DeleteVAOs;
+        PFNGLDELETEVERTEXARRAYSPROC       DeleteVertexArrays;
         PFNGLDETACHSHADERPROC             DetachShader;
         PFNGLDISABLEPROC                  Disable;
         PFNGLDISABLEVERTEXATTRIBARRAYPROC DisableVertexAttribArray;
@@ -511,7 +511,7 @@ union ImGL3WProcs {
         PFNGLFLUSHPROC                    Flush;
         PFNGLGENBUFFERSPROC               GenBuffers;
         PFNGLGENTEXTURESPROC              GenTextures;
-        PFNGLGENVAOSPROC          GenVAOs;
+        PFNGLGENVERTEXARRAYSPROC          GenVertexArrays;
         PFNGLGETATTRIBLOCATIONPROC        GetAttribLocation;
         PFNGLGETERRORPROC                 GetError;
         PFNGLGETINTEGERVPROC              GetIntegerv;
@@ -550,7 +550,7 @@ GL3W_API extern union ImGL3WProcs imgl3wProcs;
 #define glBindBuffer                      imgl3wProcs.gl.BindBuffer
 #define glBindSampler                     imgl3wProcs.gl.BindSampler
 #define glBindTexture                     imgl3wProcs.gl.BindTexture
-#define glBindVAO                 imgl3wProcs.gl.BindVAO
+#define glBindVertexArray                 imgl3wProcs.gl.BindVertexArray
 #define glBlendEquation                   imgl3wProcs.gl.BlendEquation
 #define glBlendEquationSeparate           imgl3wProcs.gl.BlendEquationSeparate
 #define glBlendFuncSeparate               imgl3wProcs.gl.BlendFuncSeparate
@@ -565,7 +565,7 @@ GL3W_API extern union ImGL3WProcs imgl3wProcs;
 #define glDeleteProgram                   imgl3wProcs.gl.DeleteProgram
 #define glDeleteShader                    imgl3wProcs.gl.DeleteShader
 #define glDeleteTextures                  imgl3wProcs.gl.DeleteTextures
-#define glDeleteVAOs              imgl3wProcs.gl.DeleteVAOs
+#define glDeleteVertexArrays              imgl3wProcs.gl.DeleteVertexArrays
 #define glDetachShader                    imgl3wProcs.gl.DetachShader
 #define glDisable                         imgl3wProcs.gl.Disable
 #define glDisableVertexAttribArray        imgl3wProcs.gl.DisableVertexAttribArray
@@ -576,7 +576,7 @@ GL3W_API extern union ImGL3WProcs imgl3wProcs;
 #define glFlush                           imgl3wProcs.gl.Flush
 #define glGenBuffers                      imgl3wProcs.gl.GenBuffers
 #define glGenTextures                     imgl3wProcs.gl.GenTextures
-#define glGenVAOs                 imgl3wProcs.gl.GenVAOs
+#define glGenVertexArrays                 imgl3wProcs.gl.GenVertexArrays
 #define glGetAttribLocation               imgl3wProcs.gl.GetAttribLocation
 #define glGetError                        imgl3wProcs.gl.GetError
 #define glGetIntegerv                     imgl3wProcs.gl.GetIntegerv
@@ -845,7 +845,7 @@ static const char *proc_names[] = {
     "glBindBuffer",
     "glBindSampler",
     "glBindTexture",
-    "glBindVAO",
+    "glBindVertexArray",
     "glBlendEquation",
     "glBlendEquationSeparate",
     "glBlendFuncSeparate",
@@ -860,7 +860,7 @@ static const char *proc_names[] = {
     "glDeleteProgram",
     "glDeleteShader",
     "glDeleteTextures",
-    "glDeleteVAOs",
+    "glDeleteVertexArrays",
     "glDetachShader",
     "glDisable",
     "glDisableVertexAttribArray",
@@ -871,7 +871,7 @@ static const char *proc_names[] = {
     "glFlush",
     "glGenBuffers",
     "glGenTextures",
-    "glGenVAOs",
+    "glGenVertexArrays",
     "glGetAttribLocation",
     "glGetError",
     "glGetIntegerv",

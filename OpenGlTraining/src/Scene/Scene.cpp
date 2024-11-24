@@ -46,5 +46,7 @@ void Scene::onKeyEvent(int32_t key, int32_t scancode, int32_t action, int32_t mo
 void Scene::render()
 {
 	m_Cube.SetView(camera.GetViewMatrix());
+	glm::vec3 axis(1.0f, 1.0f, 0.0f);
+	m_Cube.Rotate(m_Rotation, axis);
 	m_Cube.draw();
 }

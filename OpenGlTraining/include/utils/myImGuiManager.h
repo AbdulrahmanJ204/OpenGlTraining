@@ -1,12 +1,12 @@
 #pragma once
-#include <imGui/imgui_impl_glfw.h>
-#include <glm/glm.hpp>
+
+#include "core.h"
 class myImGuiManager {
 private:
     int m_Width, m_Height;
 public:
     myImGuiManager();
-    myImGuiManager(GLFWwindow*& window, int& width, int& height);
+    myImGuiManager(int width, int height);
     ~myImGuiManager();
    
     myImGuiManager(myImGuiManager&&) noexcept = default;

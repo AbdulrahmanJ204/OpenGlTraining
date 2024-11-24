@@ -25,12 +25,12 @@ private:
 	Scene scene;
 	float lastX  , lastY;
 	bool firstMouse = true;
-
+	myImGuiManager myImGui;
 	// timing
 	float deltaTime = 0.0f;	// time between current frame and last frame
 	float lastFrame = 0.0f;
 
-	void LoadImGui(myImGuiManager& myImGui);
+	void LoadImGui();
 	float movementSpeedMultiplier = 1;
 	float mouseSensitivity = .5;
 

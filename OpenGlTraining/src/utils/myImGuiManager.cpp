@@ -7,9 +7,10 @@ myImGuiManager::myImGuiManager()
 {
 }
 
-myImGuiManager::myImGuiManager(GLFWwindow*& window, int& width, int& height)
+myImGuiManager::myImGuiManager(int width, int height)
     : m_Width(width), m_Height(height)
 {
+    GLFWwindow* window = glfwGetCurrentContext();
     ImGui::CreateContext();
     ImGui_ImplOpenGL3_Init();
     ImGui_ImplGlfw_InitForOpenGL(window, true);

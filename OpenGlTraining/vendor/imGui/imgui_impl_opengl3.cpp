@@ -175,9 +175,9 @@
 #define IMGUI_IMPL_OPENGL_USE_VERTEX_ARRAY
 #elif defined(__EMSCRIPTEN__)
 #define IMGUI_IMPL_OPENGL_USE_VERTEX_ARRAY
-#define glBindVAO       glBindVAOOES
-#define glGenVAOs       glGenVAOsOES
-#define glDeleteVAOs    glDeleteVAOsOES
+#define glBindVertexArray       glBindVertexArrayOES
+#define glGenVertexArrays       glGenVertexArraysOES
+#define glDeleteVertexArrays    glDeleteVertexArraysOES
 #define GL_VERTEX_ARRAY_BINDING GL_VERTEX_ARRAY_BINDING_OES
 #endif
 
@@ -234,8 +234,8 @@ struct ImGui_ImplOpenGL3_Data
     GLuint          AttribLocationVtxUV;
     GLuint          AttribLocationVtxColor;
     unsigned int    VboHandle, ElementsHandle;
-    GLsizeiptr      VBOSize;
-    GLsizeiptr      EBOSize;
+    GLsizeiptr      VertexBufferSize;
+    GLsizeiptr      IndexBufferSize;
     bool            HasPolygonMode;
     bool            HasClipOrigin;
     bool            UseBufferSubData;
@@ -469,7 +469,7 @@ static void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int fb_wid
 
     (void)vertex_array_object;
 #ifdef IMGUI_IMPL_OPENGL_USE_VERTEX_ARRAY
-    glBindVAO(vertex_array_object);
+    glBindVertexArray(vertex_array_object);
 #endif
 
     // Bind vertex/index buffers and setup attributes for ImDrawVert
@@ -540,7 +540,7 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
     // The renderer would actually work without any VAO bound, but then our VertexAttrib calls would overwrite the default one currently bound.
     GLuint vertex_array_object = 0;
 #ifdef IMGUI_IMPL_OPENGL_USE_VERTEX_ARRAY
-    GL_CALL(glGenVAOs(1, &vertex_array_object));
+    GL_CALL(glGenVertexArrays(1, &vertex_array_object));
 #endif
     ImGui_ImplOpenGL3_SetupRenderState(draw_data, fb_width, fb_height, vertex_array_object);
 
@@ -565,15 +565,15 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
         const GLsizeiptr idx_buffer_size = (GLsizeiptr)draw_list->IdxBuffer.Size * (int)sizeof(ImDrawIdx);
         if (bd->UseBufferSubData)
         {
-            if (bd->VBOSize < vtx_buffer_size)
+            if (bd->VertexBufferSize < vtx_buffer_size)
             {
-                bd->VBOSize = vtx_buffer_size;
-                GL_CALL(glBufferData(GL_ARRAY_BUFFER, bd->VBOSize, nullptr, GL_STREAM_DRAW));
+                bd->VertexBufferSize = vtx_buffer_size;
+                GL_CALL(glBufferData(GL_ARRAY_BUFFER, bd->VertexBufferSize, nullptr, GL_STREAM_DRAW));
             }
-            if (bd->EBOSize < idx_buffer_size)
+            if (bd->IndexBufferSize < idx_buffer_size)
             {
-                bd->EBOSize = idx_buffer_size;
-                GL_CALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, bd->EBOSize, nullptr, GL_STREAM_DRAW));
+                bd->IndexBufferSize = idx_buffer_size;
+                GL_CALL(glBufferData(GL_ELEMENT_ARRAY_BUFFER, bd->IndexBufferSize, nullptr, GL_STREAM_DRAW));
             }
             GL_CALL(glBufferSubData(GL_ARRAY_BUFFER, 0, vtx_buffer_size, (const GLvoid*)draw_list->VtxBuffer.Data));
             GL_CALL(glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, idx_buffer_size, (const GLvoid*)draw_list->IdxBuffer.Data));
@@ -621,7 +621,7 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
 
     // Destroy the temporary VAO
 #ifdef IMGUI_IMPL_OPENGL_USE_VERTEX_ARRAY
-    GL_CALL(glDeleteVAOs(1, &vertex_array_object));
+    GL_CALL(glDeleteVertexArrays(1, &vertex_array_object));
 #endif
 
     // Restore modified GL state
@@ -634,7 +634,7 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
 #endif
     glActiveTexture(last_active_texture);
 #ifdef IMGUI_IMPL_OPENGL_USE_VERTEX_ARRAY
-    glBindVAO(last_vertex_array_object);
+    glBindVertexArray(last_vertex_array_object);
 #endif
     glBindBuffer(GL_ARRAY_BUFFER, last_array_buffer);
 #ifndef IMGUI_IMPL_OPENGL_USE_VERTEX_ARRAY
@@ -939,7 +939,7 @@ bool    ImGui_ImplOpenGL3_CreateDeviceObjects()
     if (bd->GlVersion >= 210) { glBindBuffer(GL_PIXEL_UNPACK_BUFFER, last_pixel_unpack_buffer); }
 #endif
 #ifdef IMGUI_IMPL_OPENGL_USE_VERTEX_ARRAY
-    glBindVAO(last_vertex_array);
+    glBindVertexArray(last_vertex_array);
 #endif
 
     return true;

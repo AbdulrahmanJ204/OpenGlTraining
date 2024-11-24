@@ -1,9 +1,11 @@
 #include"Application.h"
+#include "Window.h"
 Application* Application::instancePtr = nullptr;
 Application::Application()
 	:
 	lastX(0.0f) , lastY(0.0f),
-	window("Test", 1800, 900)
+	window("Test", 1800, 900),
+	myImGui(1800, 900)
 {
 	spdlog::info("Starting Application");	
 	instancePtr = this;
@@ -15,11 +17,7 @@ Application::~Application()
 
 	instancePtr = nullptr;
 }
-void Application::LoadImGui(myImGuiManager& myImGui)
-{
-	/*myImGui.BeginFrame();
-	myImGui.EndFrame();*/
-}
+
 
 void Application::run() {
 	
@@ -45,11 +43,21 @@ void Application::run() {
 		scene.render();
 		
 		
-		glfwPollEvents();
-		//LoadImGui(myImGui);
+			glfwPollEvents();
+		LoadImGui();
 		window.swapBuffers();
 	}
 
+}
+
+
+void Application::LoadImGui()
+{
+
+	glfwMakeContextCurrent(glfwGetCurrentContext());
+	myImGui.BeginFrame();
+	ImGui::SliderFloat("Test ", &scene.getRotation(), 0.0f, 360.0f);
+	myImGui.EndFrame();
 }
 void Application::processInput()
 {
