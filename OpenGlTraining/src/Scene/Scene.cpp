@@ -1,12 +1,14 @@
 #include "Scene.h"
 #include "Application.h"
+Scene* Scene::instancePtr = nullptr;
 Scene::Scene() :
 	m_Proj(glm::perspective(glm::radians(45.0f), (float)Window::getWidth() / Window::getHeight(), 0.1f, 2000.0f)),
 	//m_Proj(glm::ortho(0.0f, 800.0f, 0.0f, 800.0f, -100.0f, 100.0f)),
 	m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 400.0f))),
-	camera(glm::vec3(0, 0, 400.0f)),
-	m_Cube(100.0f)
+	camera(glm::vec3(0, 0, 400.0f))
 {
+	instancePtr = this;
+	m_Cube = Cube(100.0f);
 	m_Cube.SetProj(m_Proj);
 	m_Cube.SetView(m_View);
 }

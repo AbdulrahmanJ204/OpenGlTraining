@@ -15,6 +15,10 @@ void main()
 {
 	gl_Position = projection * view * model * vec4(aPos, 1.0f);
 	FragPos = vec3(model * vec4(aPos, 1.0));
-	Normal = aNormal;
+	//Normal = aNormal;// this wont work when scaling
+	
+	// should be calculated in cpu side because it is a costly operation for shaders , 
+	// for learning it is ok , check learnopengl at 122 / before specular Lighting.
+	Normal = mat3(transpose(inverse(model))) * aNormal;
 	TexCoord = vec2(aTexCoord.x, aTexCoord.y);
 }
