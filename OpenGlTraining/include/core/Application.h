@@ -1,42 +1,37 @@
 #pragma once
 #include "core.h"
 #include "Cube.h"
-#include "Renderer.h"
 #include "Window.h"
 #include "Camera.h"
 #include "Scene.h"
 class Application {
-public :
-	
-	
-	void run();
+public:
+
+
 	Application();
 	~Application();
-	static Application& instance() { return *instancePtr; };
+
+	void run();
+	void onCursorPositionEvent(double x, double y);
+	void processDiscreteInput(int32_t key, int32_t scancode, int32_t action, int32_t mode);
+	void processContinuousInput();
+
 	Window& getWindow() { return window; };
 
-	void onKeyEvent(int32_t key, int32_t scancode, int32_t action, int32_t mode);
-	void onCursorPositionEvent(double x, double y);
+	static Application& instance() { return *instancePtr; };
+
 	static Application* instancePtr;
 private:
-	Renderer m_Renderer;
-	Window window;
 	
+	Window window;
 	Scene scene;
-	float lastX  , lastY;
-	bool firstMouse = true;
 	myImGuiManager myImGui;
-	// timing
-	float deltaTime = 0.0f;	// time between current frame and last frame
-	float lastFrame = 0.0f;
+	float deltaTime, lastFrame;
 
 	void LoadImGui();
-	float movementSpeedMultiplier = 1;
-	float mouseSensitivity = .5;
+	void SetupBasics();
+	void Clear();
+	void UpdateDeltaTime();
 
-
-	
-	void processInput();
 	float getRandom();
-
 };

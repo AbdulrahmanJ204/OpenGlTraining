@@ -1,6 +1,17 @@
 #include "Cube.h"
 #include "Scene.h"
-Cube::Cube()
+Cube::Cube():
+	m_Length(100.0f),
+	m_FScale(1.0f),
+	m_Degree(0.0f),
+	m_Axis(glm::vec3(1.0f, 1.0f, 1.0f)),
+	m_Translate(glm::vec3(1.0f, 1.0f, 1.0f)),
+	m_Scale(glm::vec3(1.0f, 1.0f, 1.0f)),
+	m_CubeColor(glm::vec3(1.0f, 0.5f, 0.31f)),
+	m_LightColor(glm::vec3(1.0f, 1.0f, 1.0f)),
+	m_LightPos(glm::vec3(100.0f, 0.0f, 200.0f)),
+	m_Model(glm::mat4(1.0f)),
+	m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.0f)))
 {
 }
 
@@ -13,7 +24,7 @@ Cube::Cube(float sideLength) :
 	m_Scale(glm::vec3(1.0f, 1.0f, 1.0f)),
 	m_CubeColor(glm::vec3(1.0f, 0.5f, 0.31f)),
 	m_LightColor(glm::vec3(1.0f, 1.0f, 1.0f)),
-	m_LightPos(glm::vec3(0.0f, 0.0f, 300.0f)),
+	m_LightPos(glm::vec3(100.0f, 0.0f, 200.0f)),
 	m_Model(glm::mat4(1.0f)),
 	m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.0f)))
 {

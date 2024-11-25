@@ -6,13 +6,15 @@ enum Camera_Movement {
     FORWARD,
     BACKWARD,
     LEFT,
-    RIGHT
+    RIGHT,
+    DOWN,
+    UP,
 };
 
 // Default camera values
 const float YAW = -90.0f;
 const float PITCH = 0.0f;
-const float SPEED = 200.5f;
+const float SPEED = 25.5f;
 const float SENSITIVITY = 0.1f;
 const float ZOOM = 45.0f;
 
@@ -74,7 +76,10 @@ public:
             Position -= Right * velocity;
         if (direction == RIGHT)
             Position += Right * velocity;
-
+        if(direction==UP)
+            Position += Up * velocity;
+        if(direction==DOWN)
+            Position -= Up * velocity;
         //std::cout << "New : \n";
         //std::cout << "X = " << Position.x << " Y = " << Position.y <<" Z = "<<Position.z << std::endl;
     }

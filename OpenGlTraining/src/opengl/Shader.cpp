@@ -1,9 +1,5 @@
 #include "Shader.h"
-#include"GLErrorManager.h"
 
-#include<iostream>
-#include<fstream>
-#include<string>
 
 Shader::Shader(const std::string& filepath) : m_FilePath(filepath), m_RendererID(0)
 {

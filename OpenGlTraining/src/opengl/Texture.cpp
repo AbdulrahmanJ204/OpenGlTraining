@@ -1,6 +1,4 @@
 #include "Texture.h"
-#include"core.h"
-
 
 Texture::Texture(const std::string& filepath)
 	: m_RendererID(0), m_FilePath(filepath), m_LocalBuffer(0), m_Width(0), m_Height(0), m_BPP(0)
