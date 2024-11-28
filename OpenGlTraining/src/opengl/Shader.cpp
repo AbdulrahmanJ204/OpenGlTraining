@@ -162,7 +162,7 @@ int Shader::getUniformLoacation(const std::string& name)
 	GLCall(location = glGetUniformLocation(m_RendererID, name.c_str()));
 
 	if (location == -1)
-		std::cout << "Warining: unifrom ' " << name << "' doesn't exist" << std::endl;
+		std::cout << "Warining: unifrom ' " << name << " ' doesn't exist" << std::endl;
 	m_UniformLoactionCache[name] = location;
 	return location;
 }

@@ -96,6 +96,9 @@
     <ClInclude Include="include\Scene\mesh.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\utils\TextureLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\Scene\model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -172,23 +175,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\shaders\Basic.shader">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\shaders\OutIn.shader">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\shaders\texture.shader">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\shaders\texture_color.shader">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="assets\shaders\Uniform.shader">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="assets\shaders\vertex.vert" />
     <None Include="assets\shaders\fragment.frag" />
+    <None Include="assets\shaders\model_loading.frag" />
+    <None Include="assets\shaders\model_loading.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\awesomeface.png">
