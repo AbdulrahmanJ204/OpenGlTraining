@@ -41,13 +41,8 @@ void Scene::processDiscreteInput(int32_t key, int32_t scancode, int32_t action, 
 	}
 	else if (key == GLFW_KEY_CAPS_LOCK) {
 		int mode  = glfwGetInputMode(Window::instancePtr->getWindow(),GLFW_CURSOR);
-		cnt++;
-		if (cnt % 2)
-		{
-			glfwSetInputMode(Window::instancePtr->getWindow(), GLFW_CURSOR, mode == GLFW_CURSOR_DISABLED ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
+		glfwSetInputMode(Window::instancePtr->getWindow(), GLFW_CURSOR, mode == GLFW_CURSOR_DISABLED ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
 
-		}
-		else cnt = 0;
 	}
 
 }

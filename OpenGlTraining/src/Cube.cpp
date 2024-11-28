@@ -1,5 +1,6 @@
 #include "Cube.h"
 #include "Scene.h"
+// TODO: Clean this :-)
 Cube::Cube():
 	m_Length(100.0f),
 	m_FScale(1.0f),
@@ -13,6 +14,9 @@ Cube::Cube():
 	m_Model(glm::mat4(1.0f)),
 	m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.0f)))
 {
+	int width, height;
+	glfwGetWindowSize(glfwGetCurrentContext(), &width, &height);
+	m_Proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 2000.0f);
 }
 
 Cube::Cube(float sideLength) :
@@ -88,11 +92,11 @@ Cube::Cube(float sideLength) :
 	layout.Push<float>(2);
 	m_VAO = std::make_unique<VAO>();
 	m_VAO->AddBuffer(*m_VBO, layout);
-	m_Texture = std::make_unique<Texture>("assets/textures/container.jpg");
+	m_Texture = std::make_unique<Texture>("assets/textures/brickwall.jpg");
 	m_Shader = std::make_unique<Shader>("assets/shaders/vertex.vert" ,"assets/shaders/fragment.frag");
-	//m_Texture->Bind();
+	m_Texture->Bind();
 	m_Shader->Bind();
-	//m_Shader->SetUniform1i("u_Texture", 0); // 0 is slot number. it should match with slot we chose
+	m_Shader->SetUniform1i("u_Texture", 0); // 0 is slot number. it should match with slot we chose
 	updateUniforms();
 
 }

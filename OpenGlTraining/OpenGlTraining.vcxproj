@@ -164,6 +164,8 @@
     <ClInclude Include="include\core\Window.h" />
     <ClInclude Include="include\Cube.h" />
     <ClInclude Include="include\core_utils.h" />
+    <ClInclude Include="include\Scene\mesh.h" />
+    <ClInclude Include="include\Scene\model.h" />
     <ClInclude Include="include\utils\myImGuiManager.h" />
     <ClInclude Include="include\Scene\Renderer.h" />
     <ClInclude Include="include\opengl\Shader.h" />
@@ -221,7 +223,9 @@
     <None Include="assets\shaders\Uniform.shader" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\LearnOpenGlRepo\LearnOpenGL\resources\textures\brickwall.jpg" />
     <Image Include="assets\textures\awesomeface.png" />
+    <Image Include="assets\textures\brickwall.jpg" />
     <Image Include="assets\textures\container.jpg" />
     <Image Include="assets\textures\shuriken.png" />
   </ItemGroup>

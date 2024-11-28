@@ -93,6 +93,12 @@
     <ClInclude Include="include\Scene\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Scene\mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Scene\model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\opengl\VBO.cpp">
@@ -192,6 +198,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\textures\shuriken.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\..\LearnOpenGlRepo\LearnOpenGL\resources\textures\brickwall.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\brickwall.jpg">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
