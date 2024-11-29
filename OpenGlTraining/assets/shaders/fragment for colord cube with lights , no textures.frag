@@ -6,8 +6,9 @@ in vec3 Normal;
 in vec3 FragPos;
 
 struct Material {
- sampler2D diffuse; // removed ambient since they have the same color.
- sampler2D specular;
+ vec3 ambient;
+ vec3 diffuse;
+ vec3 specular;
  float shininess;
  };
  uniform Material material;
@@ -19,6 +20,9 @@ struct Material {
  vec3 specular;
  };
  uniform Light light;
+
+
+//uniform sampler2D u_Texture;
 
 uniform vec3 lightPos;
 uniform vec3 viewPos;
@@ -37,10 +41,10 @@ void main()
  material.shininess);
 
 
- vec3 diffuse =   light.diffuse * diff * vec3(texture(material.diffuse,TexCoord));
- vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoord));
-  vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoord));
-//// vec3 result = (ambient+diffuse+specular) * vec3(texture(u_Texture , TexCoord)) ;
+ vec3 ambient = light.ambient * material.ambient;
+ vec3 diffuse = light.diffuse * (diff * material.diffuse);
+ vec3 specular = light.specular * (spec * material.specular);
+// vec3 result = (ambient+diffuse+specular) * vec3(texture(u_Texture , TexCoord)) ;
  vec3 result = (ambient+diffuse+specular);
  FragColor = vec4(result, 1.0);
 }

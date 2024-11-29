@@ -10,7 +10,7 @@ Cube::Cube():
 	m_Scale(glm::vec3(1.0f, 1.0f, 1.0f)),
 	m_CubeColor(glm::vec3(1.0f, 0.5f, 0.31f)),
 	m_LightColor(glm::vec3(1.0f, 1.0f, 1.0f)),
-	m_LightPos(glm::vec3(100.0f, 0.0f, 200.0f)),
+	m_LightPos(glm::vec3(10.0f, 10.0f, 20.0f)),
 	m_Model(glm::mat4(1.0f)),
 	m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.0f)))
 {
@@ -19,7 +19,7 @@ Cube::Cube():
 	m_Proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 2000.0f);
 }
 
-Cube::Cube(float sideLength) :
+Cube::Cube(float sideLength ,const std::string& vertexPath , const std::string& fragPath) :
 	m_Length(sideLength),
 	m_FScale(1.0f),
 	m_Degree(0.0f),
@@ -28,7 +28,7 @@ Cube::Cube(float sideLength) :
 	m_Scale(glm::vec3(1.0f, 1.0f, 1.0f)),
 	m_CubeColor(glm::vec3(1.0f, 0.5f, 0.31f)),
 	m_LightColor(glm::vec3(1.0f, 1.0f, 1.0f)),
-	m_LightPos(glm::vec3(100.0f, 0.0f, 200.0f)),
+	m_LightPos(glm::vec3(0.0f, 0.0f, 0.0f)),
 	m_Model(glm::mat4(1.0f)),
 	m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.0f)))
 {
@@ -92,13 +92,14 @@ Cube::Cube(float sideLength) :
 	layout.Push<float>(2);
 	m_VAO = std::make_unique<VAO>();
 	m_VAO->AddBuffer(*m_VBO, layout);
-	m_Texture = std::make_unique<Texture>("assets/textures/brickwall.jpg");
-	m_Shader = std::make_unique<Shader>("assets/shaders/vertex.vert" ,"assets/shaders/fragment.frag");
+	m_Texture = std::make_unique<Texture>("assets/textures/container2.png");
+	m_SpMap = std::make_unique<Texture>("assets/textures/container2_specular.png");
+	m_Shader = std::make_unique<Shader>(vertexPath , fragPath);
 	m_Texture->Bind();
 	m_Shader->Bind();
-	m_Shader->SetUniform1i("u_Texture", 0); // 0 is slot number. it should match with slot we chose
+	//m_Shader->SetUniform1i("u_Texture", 0); // 0 is slot number. it should match with slot we chose
 	updateUniforms();
-
+	m_VAO->Unbind();
 }
 
 Cube::~Cube()
@@ -107,38 +108,38 @@ Cube::~Cube()
 
 void Cube::draw()
 {
-	//m_Texture->Bind();
+	m_VAO->Bind();
+	m_Texture->Bind();
+	m_SpMap->Bind(1);
 	m_Shader->Bind();
-	//m_Shader->SetUniform1i("u_Texture", 0); // 0 is slot number. it should match with slot we chose
 	updateUniforms();
 	GLCall(glDrawArrays(GL_TRIANGLES, 0, 36));
 }
 void Cube::updateUniforms() {
 	m_Shader->Bind();
-	m_Shader->SetUniform3fv("objectColor", m_CubeColor);
-	m_Shader->SetUniform3fv("lightColor", m_LightColor);
-	m_Shader->SetUniform3fv("lightPos", m_LightPos);
-	m_Shader->SetUniform3fv("viewPos", Scene::instancePtr->getCameraPosition());
-	m_Shader->SetUniform3f("material.ambient", 1.0f, 0.5f, 0.31f);
-	m_Shader->SetUniform3f("material.diffuse", 1.0f, 0.5f, 0.31f);
-	m_Shader->SetUniform3f("material.specular", 0.5f, 0.5f, 0.5f);
-	m_Shader->SetUniform1f("material.shininess", 32.0f);
-
-	m_Shader->SetUniform3f("light.ambient", 0.2f, 0.2f, 0.2f);
-
-	glm::vec3 lightColor;
-	lightColor.x = sin(glfwGetTime() * 2.0f);
-	lightColor.y = sin(glfwGetTime() * 0.7f);
-	lightColor.z = sin(glfwGetTime() * 1.3f);
-	glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
-	glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
-	m_Shader->SetUniform3fv("light.ambient", ambientColor);
-	m_Shader->SetUniform3fv("light.diffuse", diffuseColor);
-
 
 	m_Shader->setUniformMat4f("model", m_Model);
 	m_Shader->setUniformMat4f("view", m_View);
 	m_Shader->setUniformMat4f("projection", m_Proj);
+	
+	if (m_Shader->getPath().find("light_cube") != std::string::npos) return;
+	
+	m_Shader->SetUniform3fv("lightPos", m_LightPos);
+	m_Shader->SetUniform3fv("viewPos", Scene::instancePtr->getCameraPosition());
+	//m_Shader->SetUniform3f("material.ambient", 1.0f, 0.5f, 0.31f);
+	//m_Shader->SetUniform3f("material.diffuse", 1.0f, 0.5f, 0.31f);
+	//m_Shader->SetUniform3f("material.specular", 0.5f, 0.5f, 0.5f);
+	m_Shader->SetUniform1f("material.shininess", 32.0f);
+	m_Shader->SetUniform3f("light.ambient", 0.2f, 0.2f, 0.2f);
+
+	m_Shader->SetUniform1i("material.diffuse", 0);
+	m_Shader->SetUniform1i("material.specular", 1);
+
+
+	m_Shader->SetUniform3f("light.ambient", 0.2f, 0.2f, 0.2f);
+	m_Shader->SetUniform3f("light.diffuse", 0.5f, 0.5f, 0.5f); // darkened
+	m_Shader->SetUniform3f("light.specular", 1.0f, 1.0f, 1.0f);
+	
 
 	
 }
@@ -178,12 +179,16 @@ void Cube::Scale(float scale) {
 void Cube::SetView(glm::mat4 view) {
 	//m_View = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -400.0f))* view;
 	m_View = view;
-	updateUniforms();
+
 }
 void Cube::SetProj(glm::mat4 proj) {
 	//m_View = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -400.0f))* view;
 	m_Proj = proj;
-	updateUniforms();
+
+}
+
+void Cube::SetLighPos(glm::vec3 pos) {
+	m_LightPos = pos;
 }
 void Cube::RotateAroundAxis(float angle, const glm::vec3& axis, const glm::vec3& pivot) {
 	// Step 1: Translate cube so that pivot becomes the origin
@@ -194,4 +199,9 @@ void Cube::RotateAroundAxis(float angle, const glm::vec3& axis, const glm::vec3&
 
 	// Step 3: Translate cube back to its original position
 	m_Model = glm::translate(glm::mat4(1.0f), pivot) * m_Model;
+}
+
+void Cube::setShader(const std::string& vertexPath, const std::string& fragmentPath)
+{
+	m_Shader = std::make_unique<Shader>(vertexPath, fragmentPath);
 }

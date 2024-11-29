@@ -8,22 +8,37 @@ Scene::Scene() :
 	m_Proj(glm::perspective(glm::radians(45.0f), (float)Window::getWidth() / Window::getHeight(), 0.1f, 1000.0f)),
 	//m_Proj(glm::ortho(0.0f, 800.0f, 0.0f, 800.0f, -100.0f, 100.0f)),
 	m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 20.0f))),
+	m_LightPos(30.0f, 30.0f, 30.0f),
 	camera(glm::vec3(0, 0, 20.0f))
 {
 
 	instancePtr = this;
 	
 	lastX = Window::getWidth() / 2.0f;
+	lastY = Window::getHeight() / 2.0f;
+	m_lightCube = Cube(3.0f ,"assets/shaders/light_cube.vert", "assets/shaders/light_cube.frag");
+	m_lightCube.SetProj(m_Proj);
+	m_lightCube.SetView(m_View);
 
-	m_Cube = Cube(20.0f);
+	m_Cube = Cube(10.0f , "assets/shaders/vertex.vert", "assets/shaders/fragment.frag");
 	m_Cube.SetProj(m_Proj);
 	m_Cube.SetView(m_View);
+	
+	
+	m_Cube.SetLighPos(m_LightPos);
 }
 void Scene::render()
 {
 	 
 	glm::mat4 view = camera.GetViewMatrix();
 	m_Cube.SetView(view);
+	m_lightCube.SetView(view);
+
+	m_lightCube.Translate(m_LightPos);
+	m_lightCube.Scale(m_Scale);
+	m_Cube.SetLighPos(m_lightCube.getPos());
+
+	m_lightCube.draw();
 	m_Cube.draw();
 
 }
@@ -58,6 +73,14 @@ void Scene::processDiscreteInput(int32_t key, int32_t scancode, int32_t action, 
 
 void Scene::onCursorPositionEvent(double x, double y)
 {
+	int mode  = glfwGetInputMode(Window::instancePtr->getWindow(),GLFW_CURSOR);
+	if (mode == GLFW_CURSOR_NORMAL) 
+	{
+		lastX = Window::getWidth() / 2.0f;
+		lastY = Window::getHeight() / 2.0f;
+		firstMouse = true;
+		return;
+	}
 	float xpos = static_cast<float>(x);
 	float ypos = static_cast<float>(y);
 

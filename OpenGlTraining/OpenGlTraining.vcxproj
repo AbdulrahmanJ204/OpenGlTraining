@@ -215,7 +215,6 @@
     <ClCompile Include="src\opengl\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\objects\backpack\.gitignore" />
     <None Include="assets\shaders\model_loading.frag" />
     <None Include="assets\shaders\model_loading.vert" />
     <None Include="assets\shaders\vertex.vert" />

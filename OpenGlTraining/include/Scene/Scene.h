@@ -10,7 +10,9 @@ public:
 	~Scene();
 	void render();
 	inline glm::vec3 getCameraPosition() const { return camera.Position; }
+	inline glm::vec3& getLightPosition() { return m_LightPos; }
 	inline float& getRotation()  {return m_Rotation;}
+	inline float& getScale()  {return m_Scale;}
 	inline Camera& getCamera() { return camera; };
 
 	void onCursorPositionEvent(double x, double y);
@@ -24,8 +26,9 @@ private:
 	Camera camera;
 	float lastX, lastY;
 	bool firstMouse;
-	Cube m_Cube;
-	float m_Rotation = 0.0f;
+	Cube m_Cube, m_lightCube;
+	glm::vec3 m_LightPos;
+	float m_Rotation = 0.0f , m_Scale = 1.0f;
 	glm::mat4 m_Proj, m_View;
 };
 

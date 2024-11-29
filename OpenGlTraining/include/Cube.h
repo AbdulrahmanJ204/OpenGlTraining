@@ -16,13 +16,14 @@ private:
 	std::unique_ptr< VBO >m_VBO;
 	std::unique_ptr< Shader >m_Shader;
 	std::unique_ptr< Texture >m_Texture;
+	std::unique_ptr< Texture >m_SpMap;
 	float m_Length , m_Degree, m_FScale;
 	glm::mat4 m_Proj, m_View, m_Model;
 	glm::vec3 m_Axis , m_Translate , m_Scale , m_CubeColor , m_LightColor, m_LightPos;
 	
 public:
 	Cube();
-	Cube(float sideLength);
+	Cube(float sideLength , const std::string& vertexPath , const std::string& fragPath);
 
 	// Allow moving
 	Cube(Cube&&) noexcept = default;
@@ -36,6 +37,9 @@ public:
 	void Scale(float scale);
 	void SetView(glm::mat4 view);
 	void SetProj(glm::mat4 proj);
+	void SetLighPos(glm::vec3 pos);
 	void RotateAroundAxis(float angle, const glm::vec3& axis, const glm::vec3& pivot);
+	void setShader(const std::string& vertexPath, const std::string& fragmentPath);
+	inline glm::vec3 getPos() const { return m_Translate; }
 };
 

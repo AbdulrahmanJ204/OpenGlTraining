@@ -60,7 +60,9 @@ void Application::LoadImGui()
 
 	glfwMakeContextCurrent(glfwGetCurrentContext());
 	myImGui.BeginFrame();
-	ImGui::SliderFloat("Cube Rotation ", &scene.getRotation(), 0.0f, 360.0f);
+	//ImGui::SliderFloat("Cube Rotation ", &scene.getRotation(), 0.0f, 360.0f);
+	ImGui::SliderFloat("Light Cube Scale ", &scene.getScale(), 0.1f, 100.0f);
+	ImGui::SliderFloat3("Light Position ", &scene.getLightPosition().x, -1000.0f, 1000.0f);
 	myImGui.EndFrame();
 }
 

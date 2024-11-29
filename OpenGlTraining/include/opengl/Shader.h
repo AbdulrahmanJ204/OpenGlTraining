@@ -17,7 +17,7 @@ public:
 	Shader(const std::string& vertexPath, const std::string& fragmentPath);
 	~Shader();
 
-
+	inline std::string getPath() const { return m_FilePath; }
 	// TODO : convert vec2 , 3 , 4 to & if always passing a defined vec3	
 	void Bind() const;
 	void Unbind() const;
