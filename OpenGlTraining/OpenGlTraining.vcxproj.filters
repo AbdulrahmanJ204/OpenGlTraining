@@ -179,6 +179,7 @@
     <None Include="assets\shaders\fragment.frag" />
     <None Include="assets\shaders\model_loading.frag" />
     <None Include="assets\shaders\model_loading.vert" />
+    <None Include="assets\objects\backpack\.gitignore" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\awesomeface.png">
@@ -188,9 +189,6 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\textures\shuriken.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="..\..\LearnOpenGlRepo\LearnOpenGL\resources\textures\brickwall.jpg">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\textures\brickwall.jpg">

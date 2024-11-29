@@ -119,6 +119,23 @@ void Cube::updateUniforms() {
 	m_Shader->SetUniform3fv("lightColor", m_LightColor);
 	m_Shader->SetUniform3fv("lightPos", m_LightPos);
 	m_Shader->SetUniform3fv("viewPos", Scene::instancePtr->getCameraPosition());
+	m_Shader->SetUniform3f("material.ambient", 1.0f, 0.5f, 0.31f);
+	m_Shader->SetUniform3f("material.diffuse", 1.0f, 0.5f, 0.31f);
+	m_Shader->SetUniform3f("material.specular", 0.5f, 0.5f, 0.5f);
+	m_Shader->SetUniform1f("material.shininess", 32.0f);
+
+	m_Shader->SetUniform3f("light.ambient", 0.2f, 0.2f, 0.2f);
+
+	glm::vec3 lightColor;
+	lightColor.x = sin(glfwGetTime() * 2.0f);
+	lightColor.y = sin(glfwGetTime() * 0.7f);
+	lightColor.z = sin(glfwGetTime() * 1.3f);
+	glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
+	glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
+	m_Shader->SetUniform3fv("light.ambient", ambientColor);
+	m_Shader->SetUniform3fv("light.diffuse", diffuseColor);
+
+
 	m_Shader->setUniformMat4f("model", m_Model);
 	m_Shader->setUniformMat4f("view", m_View);
 	m_Shader->setUniformMat4f("projection", m_Proj);

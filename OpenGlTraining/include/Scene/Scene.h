@@ -22,11 +22,9 @@ public:
 	static Scene* instancePtr;
 private:
 	Camera camera;
-	Model m_Model;
-	Shader modelShader;
 	float lastX, lastY;
 	bool firstMouse;
-	//Cube m_Cube;
+	Cube m_Cube;
 	float m_Rotation = 0.0f;
 	glm::mat4 m_Proj, m_View;
 };

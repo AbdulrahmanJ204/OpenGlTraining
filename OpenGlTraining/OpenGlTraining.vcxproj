@@ -215,13 +215,13 @@
     <ClCompile Include="src\opengl\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="assets\objects\backpack\.gitignore" />
     <None Include="assets\shaders\model_loading.frag" />
     <None Include="assets\shaders\model_loading.vert" />
     <None Include="assets\shaders\vertex.vert" />
     <None Include="assets\shaders\fragment.frag" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\LearnOpenGlRepo\LearnOpenGL\resources\textures\brickwall.jpg" />
     <Image Include="assets\textures\awesomeface.png" />
     <Image Include="assets\textures\brickwall.jpg" />
     <Image Include="assets\textures\container.jpg" />

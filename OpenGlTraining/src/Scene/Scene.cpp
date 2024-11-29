@@ -5,38 +5,27 @@ Scene* Scene::instancePtr = nullptr;
 Scene::Scene() :
 	lastX(0.0f), lastY(0.0f),firstMouse(true),
 	//m_Proj(glm::mat4(1.0f)),
-	m_Proj(glm::perspective(glm::radians(45.0f), (float)Window::getWidth() / Window::getHeight(), 0.1f, 100.0f)),
+	m_Proj(glm::perspective(glm::radians(45.0f), (float)Window::getWidth() / Window::getHeight(), 0.1f, 1000.0f)),
 	//m_Proj(glm::ortho(0.0f, 800.0f, 0.0f, 800.0f, -100.0f, 100.0f)),
 	m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 20.0f))),
-	camera(glm::vec3(0, 0, 20.0f)),
-	modelShader("assets/shaders/model_loading.vert", "assets/shaders/model_loading.frag"),
-	m_Model("assets/objects/backpack/backpack.obj")
+	camera(glm::vec3(0, 0, 20.0f))
 {
 
 	instancePtr = this;
 	
 	lastX = Window::getWidth() / 2.0f;
-	lastY = Window::getHeight() / 2.0f;
-	modelShader.Bind();
-	modelShader.setUniformMat4f("projection", m_Proj);
-	modelShader.setUniformMat4f("view", m_View);
-	
-	/*m_Cube = Cube(100.0f);
+
+	m_Cube = Cube(20.0f);
 	m_Cube.SetProj(m_Proj);
-	m_Cube.SetView(m_View);*/
+	m_Cube.SetView(m_View);
 }
 void Scene::render()
 {
 	 
 	glm::mat4 view = camera.GetViewMatrix();
-	modelShader.setUniformMat4f("view", view);
+	m_Cube.SetView(view);
+	m_Cube.draw();
 
-	// render the loaded model
-	glm::mat4 model = glm::mat4(1.0f);
-	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
-	model = glm::scale(model, glm::vec3(m_Rotation , m_Rotation , m_Rotation));	// it's a bit too big for our scene, so scale it down
-	modelShader.setUniformMat4f("model", model);
-	m_Model.Draw(modelShader);
 }
 
 Scene::~Scene()
