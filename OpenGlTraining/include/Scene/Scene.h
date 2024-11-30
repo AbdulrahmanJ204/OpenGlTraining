@@ -9,7 +9,7 @@ public:
 	Scene();
 	~Scene();
 	void render();
-	inline glm::vec3 getCameraPosition() const { return camera.Position; }
+	inline glm::vec3& getCameraPosition() { return camera.Position; }
 	inline glm::vec3& getLightPosition() { return m_LightPos; }
 	inline float& getRotation() { return m_Rotation; }
 	inline float& getScale() { return m_Scale; }

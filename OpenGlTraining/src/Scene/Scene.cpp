@@ -8,7 +8,7 @@ Scene::Scene() :
 	m_Proj(glm::perspective(glm::radians(45.0f), (float)Window::getWidth() / Window::getHeight(), 0.1f, 1000.0f)),
 	//m_Proj(glm::ortho(0.0f, 800.0f, 0.0f, 800.0f, -100.0f, 100.0f)),
 	m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 20.0f))),
-	m_LightPos(30.0f, 30.0f, 30.0f),
+	m_LightPos(20.0f, 20.0f, 20.0f),
 	camera(glm::vec3(0, 0, 20.0f))
 {
 
@@ -38,7 +38,7 @@ Scene::Scene() :
 	{
 		cubePositions[i] = init[i];
 		glm::vec3 trans = cubePositions[i] * glm::vec3(10.0f, 10.0f, 10.0f);
-		cubes[i] = Cube(10.0f, "assets/shaders/vertex.vert", "assets/shaders/fragment.frag", trans);
+		cubes[i] = Cube(10.0f, "assets/shaders/vertex.vert", "assets/shaders/multiple_lights.frag", trans);
 		cubes[i].SetProj(m_Proj);
 		cubes[i].SetView(m_View);
 		cubes[i].SetLightPos(m_LightPos);
@@ -48,7 +48,7 @@ Scene::Scene() :
 }
 void Scene::render()
 {
-
+	m_Rotation = (float)glfwGetTime() * 1.0f;
 	glm::mat4 view = camera.GetViewMatrix();
 
 	for (int i = 0; i < 10; i++)
@@ -60,10 +60,20 @@ void Scene::render()
 	m_LightCube.Translate(m_LightPos);
 
 	m_LightCube.draw();
-
+	glm::vec3 axis(1.0f, 1.0f, 0.0f);
 	for (int i = 0; i < 10; i++)
 	{
 		cubes[i].SetLightPos(m_LightCube.getPos());
+		if (i % 3 == 0) 
+		{	
+			glm::mat4 trans = glm::translate(glm::mat4(1.0f), -cubes[i].getPos());
+			glm::mat4 trans1 = glm::translate(glm::mat4(1.0f), cubes[i].getPos());
+			glm::mat4 rot = glm::rotate(glm::mat4(1.0f), m_Rotation, axis);
+			glm::mat4 temp= trans1*rot*trans;
+			cubes[i].setTransform(temp);
+			//cubes[i].Rotate(m_Rotation, axis);
+		}
+			m_Rotation *= -1;
 		cubes[i].draw();
 	}
 	
@@ -88,11 +98,13 @@ void Scene::processDiscreteInput(int32_t key, int32_t scancode, int32_t action, 
 		if (key == GLFW_KEY_F11) {
 			Window::instancePtr->toggleFullscreen();
 		}
-	}
-	else if (key == GLFW_KEY_CAPS_LOCK) {
+		if (key == GLFW_KEY_CAPS_LOCK) {
 		int mode = glfwGetInputMode(Window::instancePtr->getWindow(), GLFW_CURSOR);
 		glfwSetInputMode(Window::instancePtr->getWindow(), GLFW_CURSOR, mode == GLFW_CURSOR_DISABLED ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED);
-
+		}
+		if (key == GLFW_KEY_F) {
+			for (int i = 0; i < 10; i++) cubes[i].toggleSpot();
+		}
 	}
 
 }

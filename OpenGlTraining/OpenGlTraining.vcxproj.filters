@@ -102,6 +102,21 @@
     <ClInclude Include="include\Scene\model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Scene\DirectionalLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Scene\Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Scene\PointLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Scene\LightHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Scene\SpotLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\opengl\VBO.cpp">
@@ -173,6 +188,9 @@
     <ClCompile Include="src\Scene\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="include\Scene\LightHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\vertex.vert" />
@@ -181,6 +199,8 @@
     <None Include="assets\shaders\model_loading.vert" />
     <None Include="assets\shaders\multiple_lights.vert" />
     <None Include="assets\shaders\multiple_lights.frag" />
+    <None Include="assets\shaders\light_cube.vert" />
+    <None Include="assets\shaders\light_cube.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\awesomeface.png">
@@ -193,6 +213,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\textures\brickwall.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\container2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\container2_specular.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

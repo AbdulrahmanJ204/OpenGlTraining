@@ -11,9 +11,12 @@ Cube::Cube() :
 	m_CubeColor(glm::vec3(1.0f, 0.5f, 0.31f)),
 	m_LightColor(glm::vec3(1.0f, 1.0f, 1.0f)),
 	m_LightPos(glm::vec3(10.0f, 10.0f, 20.0f)),
+	m_PointLight(m_LightPos, lightProp, 100.0f),
+	m_SpotLight(m_LightPos ,glm::vec3(0.0f , 0.0f ,0.0f), lightProp, 30.0f),
 	m_Model(glm::mat4(1.0f)),
 	m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.0f)))
 {
+	
 	int width, height;
 	glfwGetWindowSize(glfwGetCurrentContext(), &width, &height);
 	m_Proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 2000.0f);
@@ -30,6 +33,8 @@ Cube::Cube(float sideLength, const std::string& vertexPath, const std::string& f
 	m_LightColor(glm::vec3(1.0f, 1.0f, 1.0f)),
 	m_LightPos(glm::vec3(0.0f, 0.0f, 0.0f)),
 	m_Model(glm::mat4(1.0f)),
+	m_PointLight(m_LightPos, lightProp, 600),
+	m_SpotLight(m_LightPos,glm::vec3(0.0f, 0.0f, 0.0f), lightProp, 100.0f),
 	m_Pos(trans),
 	m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.0f)))
 {
@@ -129,20 +134,22 @@ void Cube::updateUniforms() {
 
 
 	m_Shader->SetUniform3fv("viewPos", Scene::instancePtr->getCameraPosition());
+	m_PointLight.updatePosition(m_LightPos);
+	m_PointLight.uploadToShader(*m_Shader, "pointLight");
 
+	if (isSpotOn)
+	{
+
+		m_SpotLight.updateDircetion(Scene::instancePtr->getCamera().Front);
+		m_SpotLight.updatePosition(Scene::instancePtr->getCameraPosition());
+		m_SpotLight.uploadToShader(*m_Shader, "spotLight");
+	}
+	else m_SpotLight.turnOff(*m_Shader, "spotLight");
 	m_Shader->SetUniform1f("material.shininess", 32.0f);
 	m_Shader->SetUniform1i("material.diffuse", 0);
 	m_Shader->SetUniform1i("material.specular", 1);
 
 
-
-	m_Shader->SetUniform3fv("light.position",m_LightPos);
-	m_Shader->SetUniform3f("light.ambient", 0.2f, 0.2f, 0.2f);
-	m_Shader->SetUniform3f("light.diffuse", 0.5f, 0.5f, 0.5f); // darkened
-	m_Shader->SetUniform3f("light.specular", 1.0f, 1.0f, 1.0f);
-	m_Shader->SetUniform1f("light.constant", 1.0f);
-	m_Shader->SetUniform1f("light.linear", 0.007);
-	m_Shader->SetUniform1f("light.quadratic", 0.0002);
 
 
 
@@ -172,40 +179,19 @@ void Cube::Scale(float scale) {
 	m_Scale = glm::vec3(m_FScale, m_FScale, m_FScale);
 	m_Model = glm::scale(m_Model, m_Scale);
 }
-//void Cube::RotateAroundAxis(float angle, const glm::vec3& axis, const glm::vec3& pivot) {
-//	// Translate to the pivot point
-//	m_Model = glm::translate(m_Model, pivot);
-//
-//	// Apply rotation around the given axis
-//	m_Model = glm::rotate(m_Model, glm::radians(angle), axis);
-//
-//	// Translate back to the original position
-//	m_Model = glm::translate(m_Model, -pivot);
-//}
+
 
 
 void Cube::SetView(glm::mat4 view) {
-	//m_View = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -400.0f))* view;
 	m_View = view;
 
 }
+
 void Cube::SetProj(glm::mat4 proj) {
-	//m_View = glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -400.0f))* view;
 	m_Proj = proj;
 
 }
 
 void Cube::SetLightPos(glm::vec3 pos) {
-	 // Transform to world space
 	m_LightPos = pos;
-}
-void Cube::RotateAroundAxis(float angle, const glm::vec3& axis, const glm::vec3& pivot) {
-	// Step 1: Translate cube so that pivot becomes the origin
-	m_Model = glm::translate(glm::mat4(1.0f), -pivot) * m_Model;
-
-	// Step 2: Rotate around the world-space axis
-	m_Model = glm::rotate(glm::mat4(1.0f), glm::radians(angle), axis) * m_Model;
-
-	// Step 3: Translate cube back to its original position
-	m_Model = glm::translate(glm::mat4(1.0f), pivot) * m_Model;
 }
