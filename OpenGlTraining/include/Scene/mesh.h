@@ -6,6 +6,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <string>
 #include <vector>
+#include "Shader.h"
 using namespace std;
 
 struct Vertex {

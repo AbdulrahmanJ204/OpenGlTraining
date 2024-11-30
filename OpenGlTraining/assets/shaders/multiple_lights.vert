@@ -20,5 +20,5 @@ void main()
 	// should be calculated in cpu side because it is a costly operation for shaders , 
 	// for learning it is ok , check learnopengl at 122 / before specular Lighting.
 	Normal = mat3(transpose(inverse(model))) * aNormal;
-	TexCoord = vec2(aTexCoord.x, aTexCoord.y);
+	TexCoord = aTexCoord;
 }

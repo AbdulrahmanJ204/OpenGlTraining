@@ -1,6 +1,7 @@
 #pragma once
 #include "core.h"
 #include "cube.h"
+#include "ModelObject.h"
 #include "Camera.h"
 #include "model.h"
 class Scene
@@ -23,6 +24,7 @@ public:
 
 	static Scene* instancePtr;
 private:
+	
 	Camera camera;
 	float lastX, lastY;
 	bool firstMouse;
@@ -33,5 +35,6 @@ private:
 	glm::mat4 m_Proj, m_View;
 	glm::vec3 cubePositions[10];
 	Cube cubes[10];
+	ModelObject modelObj;
 };
 

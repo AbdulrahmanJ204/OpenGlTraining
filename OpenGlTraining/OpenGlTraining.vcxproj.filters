@@ -117,6 +117,9 @@
     <ClInclude Include="include\Scene\SpotLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Scene\ModelObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\opengl\VBO.cpp">
@@ -191,6 +194,9 @@
     <ClCompile Include="include\Scene\LightHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scene\ModelObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="assets\shaders\vertex.vert" />
@@ -201,6 +207,8 @@
     <None Include="assets\shaders\multiple_lights.frag" />
     <None Include="assets\shaders\light_cube.vert" />
     <None Include="assets\shaders\light_cube.frag" />
+    <None Include="assets\shaders\model_loading_Lights.frag" />
+    <None Include="assets\shaders\model_loading_Lights.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\textures\awesomeface.png">

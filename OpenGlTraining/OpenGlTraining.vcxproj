@@ -179,6 +179,7 @@
     <ClInclude Include="include\core\Application.h" />
     <ClInclude Include="include\Scene\Scene.h" />
     <ClInclude Include="include\utils\TextureLoader.h" />
+    <ClInclude Include="include\Scene\ModelObject.h" />
     <ClInclude Include="vendor\imGui\imconfig.h" />
     <ClInclude Include="vendor\imGui\imgui.h" />
     <ClInclude Include="vendor\imGui\imgui_impl_glfw.h" />
@@ -196,6 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\Scene\LightHelper.cpp" />
+    <ClCompile Include="src\Scene\ModelObject.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\core\Application.cpp" />
     <ClCompile Include="src\Scene\Camera.cpp" />
@@ -225,6 +227,8 @@
     <None Include="assets\shaders\light_cube.vert" />
     <None Include="assets\shaders\model_loading.frag" />
     <None Include="assets\shaders\model_loading.vert" />
+    <None Include="assets\shaders\model_loading_Lights.frag" />
+    <None Include="assets\shaders\model_loading_Lights.vert" />
     <None Include="assets\shaders\multiple_lights.frag" />
     <None Include="assets\shaders\multiple_lights.vert" />
     <None Include="assets\shaders\vertex.vert" />
