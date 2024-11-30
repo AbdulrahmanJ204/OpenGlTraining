@@ -217,6 +217,8 @@
   <ItemGroup>
     <None Include="assets\shaders\model_loading.frag" />
     <None Include="assets\shaders\model_loading.vert" />
+    <None Include="assets\shaders\multiple_lights.frag" />
+    <None Include="assets\shaders\multiple_lights.vert" />
     <None Include="assets\shaders\vertex.vert" />
     <None Include="assets\shaders\fragment.frag" />
   </ItemGroup>

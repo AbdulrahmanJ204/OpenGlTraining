@@ -1,7 +1,7 @@
 #include "Cube.h"
 #include "Scene.h"
 // TODO: Clean this :-)
-Cube::Cube():
+Cube::Cube() :
 	m_Length(100.0f),
 	m_FScale(1.0f),
 	m_Degree(0.0f),
@@ -19,72 +19,74 @@ Cube::Cube():
 	m_Proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 2000.0f);
 }
 
-Cube::Cube(float sideLength ,const std::string& vertexPath , const std::string& fragPath) :
+Cube::Cube(float sideLength, const std::string& vertexPath, const std::string& fragPath, glm::vec3 trans) :
 	m_Length(sideLength),
 	m_FScale(1.0f),
 	m_Degree(0.0f),
 	m_Axis(glm::vec3(1.0f, 1.0f, 1.0f)),
-	m_Translate(glm::vec3(1.0f, 1.0f, 1.0f)),
+	m_Translate(glm::vec3(0.0f, 0.0f, 0.0f)),
 	m_Scale(glm::vec3(1.0f, 1.0f, 1.0f)),
 	m_CubeColor(glm::vec3(1.0f, 0.5f, 0.31f)),
 	m_LightColor(glm::vec3(1.0f, 1.0f, 1.0f)),
 	m_LightPos(glm::vec3(0.0f, 0.0f, 0.0f)),
 	m_Model(glm::mat4(1.0f)),
+	m_Pos(trans),
 	m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 0.0f)))
 {
 	int width, height;
+	
 	glfwGetWindowSize(glfwGetCurrentContext(), &width, &height);
 	m_Proj = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 2000.0f);
 	float vertices[] = {
- 
- -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength,  0.0f, 0.0f,-1.0f,  0.0f,0.0f,
-  0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength,  0.0f, 0.0f,-1.0f,  1.0f,0.0f,
-  0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength,  0.0f, 0.0f,-1.0f,  1.0f,1.0f,
-  0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength,  0.0f, 0.0f,-1.0f,  1.0f,1.0f,
 
- -0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength,  0.0f, 0.0f,-1.0f,  0.0f,1.0f,
- -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength,  0.0f, 0.0f,-1.0f,  0.0f,0.0f,
- -0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength,  0.0f, 0.0f, 1.0f,  0.0f,0.0f,
-  0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength,  0.0f, 0.0f, 1.0f,  1.0f,0.0f,
+ -0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z,  0.0f, 0.0f,-1.0f,  0.0f,0.0f,
+  0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z,  0.0f, 0.0f,-1.0f,  1.0f,0.0f,
+  0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z,  0.0f, 0.0f,-1.0f,  1.0f,1.0f,
+  0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z,  0.0f, 0.0f,-1.0f,  1.0f,1.0f,
 
- 
-  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength,  0.0f, 0.0f, 1.0f, 1.0f,1.0f,
-  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength,  0.0f, 0.0f, 1.0f, 1.0f,1.0f,
- -0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength,  0.0f, 0.0f, 1.0f, 0.0f,1.0f,
- -0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength,  0.0f, 0.0f, 1.0f, 0.0f,0.0f,
- 
- -0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength, -1.0f, 0.0f, 0.0f, 1.0f,0.0f,
- -0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength, -1.0f, 0.0f, 0.0f, 1.0f,1.0f,
- -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength, -1.0f, 0.0f, 0.0f, 0.0f,1.0f,
- -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength, -1.0f, 0.0f, 0.0f, 0.0f,1.0f,
- 
- -0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength, -1.0f, 0.0f, 0.0f, 0.0f,0.0f,
- -0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength, -1.0f, 0.0f, 0.0f, 1.0f,0.0f,
-  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength,  1.0f, 0.0f, 0.0f, 1.0f,0.0f,
-  0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength,  1.0f, 0.0f, 0.0f, 1.0f,1.0f,
-  
- 
-  0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength,  1.0f, 0.0f, 0.0f, 0.0f,1.0f,
-  0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength,  1.0f, 0.0f, 0.0f, 0.0f,1.0f,
-  0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength,  1.0f, 0.0f, 0.0f, 0.0f,0.0f,
-  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength,  1.0f, 0.0f, 0.0f, 1.0f,0.0f,
- 
- -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength,  0.0f,-1.0f, 0.0f, 0.0f,1.0f,
-  0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength,  0.0f,-1.0f, 0.0f, 1.0f,1.0f,
-  0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength,  0.0f,-1.0f, 0.0f, 1.0f,0.0f,
-  0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength,  0.0f,-1.0f, 0.0f, 1.0f,0.0f,
- 
- -0.5f * sideLength,-0.5f * sideLength, 0.5f * sideLength,  0.0f,-1.0f, 0.0f, 0.0f,0.0f,
- -0.5f * sideLength,-0.5f * sideLength,-0.5f * sideLength,  0.0f,-1.0f, 0.0f, 0.0f,1.0f,
- -0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength,  0.0f, 1.0f, 0.0f, 0.0f,1.0f,
-  0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength,  0.0f, 1.0f, 0.0f, 1.0f,1.0f,
- 
+ -0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z,  0.0f, 0.0f,-1.0f,  0.0f,1.0f,
+ -0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z,  0.0f, 0.0f,-1.0f,  0.0f,0.0f,
+ -0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z,  0.0f, 0.0f, 1.0f,  0.0f,0.0f,
+  0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z,  0.0f, 0.0f, 1.0f,  1.0f,0.0f,
 
-  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength,  0.0f, 1.0f, 0.0f, 1.0f,0.0f,
-  0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength,  0.0f, 1.0f, 0.0f, 1.0f,0.0f,
- -0.5f * sideLength, 0.5f * sideLength, 0.5f * sideLength,  0.0f, 1.0f, 0.0f, 0.0f,0.0f,
- -0.5f * sideLength, 0.5f * sideLength,-0.5f * sideLength,  0.0f, 1.0f, 0.0f, 0.0f,1.0f
-};
+
+  0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z,  0.0f, 0.0f, 1.0f, 1.0f,1.0f,
+  0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z,  0.0f, 0.0f, 1.0f, 1.0f,1.0f,
+ -0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z,  0.0f, 0.0f, 1.0f, 0.0f,1.0f,
+ -0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z,  0.0f, 0.0f, 1.0f, 0.0f,0.0f,
+
+ -0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z, -1.0f, 0.0f, 0.0f, 1.0f,0.0f,
+ -0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z, -1.0f, 0.0f, 0.0f, 1.0f,1.0f,
+ -0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z, -1.0f, 0.0f, 0.0f, 0.0f,1.0f,
+ -0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z, -1.0f, 0.0f, 0.0f, 0.0f,1.0f,
+
+ -0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z, -1.0f, 0.0f, 0.0f, 0.0f,0.0f,
+ -0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z, -1.0f, 0.0f, 0.0f, 1.0f,0.0f,
+  0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z,  1.0f, 0.0f, 0.0f, 1.0f,0.0f,
+  0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z,  1.0f, 0.0f, 0.0f, 1.0f,1.0f,
+
+
+  0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z,  1.0f, 0.0f, 0.0f, 0.0f,1.0f,
+  0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z,  1.0f, 0.0f, 0.0f, 0.0f,1.0f,
+  0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z,  1.0f, 0.0f, 0.0f, 0.0f,0.0f,
+  0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z,  1.0f, 0.0f, 0.0f, 1.0f,0.0f,
+
+ -0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z,  0.0f,-1.0f, 0.0f, 0.0f,1.0f,
+  0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z,  0.0f,-1.0f, 0.0f, 1.0f,1.0f,
+  0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z,  0.0f,-1.0f, 0.0f, 1.0f,0.0f,
+  0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z,  0.0f,-1.0f, 0.0f, 1.0f,0.0f,
+
+ -0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z,  0.0f,-1.0f, 0.0f, 0.0f,0.0f,
+ -0.5f * sideLength + trans.x,-0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z,  0.0f,-1.0f, 0.0f, 0.0f,1.0f,
+ -0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z,  0.0f, 1.0f, 0.0f, 0.0f,1.0f,
+  0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z,  0.0f, 1.0f, 0.0f, 1.0f,1.0f,
+
+
+  0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z,  0.0f, 1.0f, 0.0f, 1.0f,0.0f,
+  0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z,  0.0f, 1.0f, 0.0f, 1.0f,0.0f,
+ -0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y, 0.5f * sideLength + trans.z,  0.0f, 1.0f, 0.0f, 0.0f,0.0f,
+ -0.5f * sideLength + trans.x, 0.5f * sideLength + trans.y,-0.5f * sideLength + trans.z,  0.0f, 1.0f, 0.0f, 0.0f,1.0f
+	};
 	m_VBO = std::make_unique<VBO>(vertices, sizeof(vertices));
 	VBOLayout layout;
 	layout.Push<float>(3);
@@ -94,12 +96,13 @@ Cube::Cube(float sideLength ,const std::string& vertexPath , const std::string& 
 	m_VAO->AddBuffer(*m_VBO, layout);
 	m_Texture = std::make_unique<Texture>("assets/textures/container2.png");
 	m_SpMap = std::make_unique<Texture>("assets/textures/container2_specular.png");
-	m_Shader = std::make_unique<Shader>(vertexPath , fragPath);
+	m_Shader = std::make_unique<Shader>(vertexPath, fragPath);
 	m_Texture->Bind();
 	m_Shader->Bind();
 	//m_Shader->SetUniform1i("u_Texture", 0); // 0 is slot number. it should match with slot we chose
 	updateUniforms();
 	m_VAO->Unbind();
+	m_Shader->Unbind();
 }
 
 Cube::~Cube()
@@ -121,36 +124,46 @@ void Cube::updateUniforms() {
 	m_Shader->setUniformMat4f("model", m_Model);
 	m_Shader->setUniformMat4f("view", m_View);
 	m_Shader->setUniformMat4f("projection", m_Proj);
-	
+
 	if (m_Shader->getPath().find("light_cube") != std::string::npos) return;
-	
-	m_Shader->SetUniform3fv("lightPos", m_LightPos);
+
+
 	m_Shader->SetUniform3fv("viewPos", Scene::instancePtr->getCameraPosition());
 	//m_Shader->SetUniform3f("material.ambient", 1.0f, 0.5f, 0.31f);
 	//m_Shader->SetUniform3f("material.diffuse", 1.0f, 0.5f, 0.31f);
 	//m_Shader->SetUniform3f("material.specular", 0.5f, 0.5f, 0.5f);
 	m_Shader->SetUniform1f("material.shininess", 32.0f);
-	m_Shader->SetUniform3f("light.ambient", 0.2f, 0.2f, 0.2f);
-
 	m_Shader->SetUniform1i("material.diffuse", 0);
 	m_Shader->SetUniform1i("material.specular", 1);
+
 
 
 	m_Shader->SetUniform3f("light.ambient", 0.2f, 0.2f, 0.2f);
 	m_Shader->SetUniform3f("light.diffuse", 0.5f, 0.5f, 0.5f); // darkened
 	m_Shader->SetUniform3f("light.specular", 1.0f, 1.0f, 1.0f);
-	
+	m_Shader->SetUniform3fv("light.position", Scene::instancePtr->getCameraPosition());
+	m_Shader->SetUniform3fv("light.direction", Scene::instancePtr->getCamera().Front);
+	m_Shader->SetUniform1f("light.cutOff", glm::cos(glm::radians(12.5f)));
+	m_Shader->SetUniform1f("light.outerCutOff", glm::cos(glm::radians(17.5f)));
+	m_Shader->SetUniform1f("light.constant", 1.0f);
+	m_Shader->SetUniform1f("light.linear", 0.007);
+	m_Shader->SetUniform1f("light.quadratic", 0.0002);
 
-	
+
+
+
+
 }
-void Cube::Rotate(float degree , glm::vec3& axis) {
+void Cube::Rotate(float degree, glm::vec3& axis) {
 	m_Model = glm::rotate(m_Model, glm::radians(-m_Degree), m_Axis);
 	m_Degree = degree, m_Axis = axis;
 	m_Model = glm::rotate(m_Model, glm::radians(m_Degree), m_Axis);
 }
 void Cube::Translate(glm::vec3& translate) {
 	m_Model = glm::translate(m_Model, -m_Translate);
+	m_Pos -= m_Translate;
 	m_Translate = translate;
+	m_Pos += m_Translate;
 	m_Model = glm::translate(m_Model, m_Translate);
 }
 void Cube::Scale(glm::vec3& scale) {
@@ -162,7 +175,7 @@ void Cube::Scale(float scale) {
 	m_Model = glm::scale(m_Model, glm::vec3(1.0f / m_FScale, 1.0f / m_FScale, 1.0f / m_FScale));
 	m_FScale = scale;
 	m_Scale = glm::vec3(m_FScale, m_FScale, m_FScale);
-	m_Model = glm::scale(m_Model,m_Scale);
+	m_Model = glm::scale(m_Model, m_Scale);
 }
 //void Cube::RotateAroundAxis(float angle, const glm::vec3& axis, const glm::vec3& pivot) {
 //	// Translate to the pivot point
@@ -187,7 +200,7 @@ void Cube::SetProj(glm::mat4 proj) {
 
 }
 
-void Cube::SetLighPos(glm::vec3 pos) {
+void Cube::SetLightPos(glm::vec3 pos) {
 	m_LightPos = pos;
 }
 void Cube::RotateAroundAxis(float angle, const glm::vec3& axis, const glm::vec3& pivot) {

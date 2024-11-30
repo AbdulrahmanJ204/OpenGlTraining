@@ -8,7 +8,7 @@ Scene::Scene() :
 	m_Proj(glm::perspective(glm::radians(45.0f), (float)Window::getWidth() / Window::getHeight(), 0.1f, 1000.0f)),
 	//m_Proj(glm::ortho(0.0f, 800.0f, 0.0f, 800.0f, -100.0f, 100.0f)),
 	m_View(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 20.0f))),
-	m_LightPos(30.0f, 30.0f, 30.0f),
+	m_LightPos(-40.541f, - 17.297f, - 111.892f),
 	camera(glm::vec3(0, 0, 20.0f))
 {
 
@@ -16,29 +16,66 @@ Scene::Scene() :
 	
 	lastX = Window::getWidth() / 2.0f;
 	lastY = Window::getHeight() / 2.0f;
-	m_lightCube = Cube(3.0f ,"assets/shaders/light_cube.vert", "assets/shaders/light_cube.frag");
-	m_lightCube.SetProj(m_Proj);
-	m_lightCube.SetView(m_View);
+	m_LightCube = Cube(3.0f ,"assets/shaders/light_cube.vert", "assets/shaders/light_cube.frag");
+	m_LightCube.SetProj(m_Proj);
+	m_LightCube.SetView(m_View);
 
-	m_Cube = Cube(10.0f , "assets/shaders/vertex.vert", "assets/shaders/fragment.frag");
+
+	glm::vec3 init[] = {
+ glm::vec3(0.0f, 0.0f, 0.0f),
+ glm::vec3(2.0f, 5.0f,-15.0f),
+ glm::vec3(-1.5f,-2.2f,-2.5f),
+ glm::vec3(-3.8f,-2.0f,-12.3f),
+ glm::vec3(2.4f,-0.4f,-3.5f),
+ glm::vec3(-1.7f, 3.0f,-7.5f),
+ glm::vec3(1.3f,-2.0f,-2.5f),
+ glm::vec3(1.5f, 2.0f,-2.5f),
+ glm::vec3(1.5f, 0.2f,-1.5f),
+ glm::vec3(-1.3f, 1.0f,-1.5f)
+	};
+
+	for (int i = 0; i < 10; i++)
+	{
+		cubePositions[i] = init[i];
+		//glm::vec3 trans = cubePositions[i] * glm::vec3(10.0f, 10.0f, 10.0f);
+		//cubes[i] = Cube(10.0f, "assets/shaders/vertex.vert", "assets/shaders/fragment.frag" ,trans);
+		//cubes[i].SetProj(m_Proj);
+		//cubes[i].SetView(m_View);
+		//cubes[i].SetLightPos(m_LightPos);
+	}
+		glm::vec3 trans = cubePositions[3] * glm::vec3(10.0f, 10.0f, 10.0f);
+	m_Cube = Cube(10.0f , "assets/shaders/vertex.vert", "assets/shaders/fragment.frag" , trans);
 	m_Cube.SetProj(m_Proj);
 	m_Cube.SetView(m_View);
 	
 	
-	m_Cube.SetLighPos(m_LightPos);
+	//m_Cube.SetLightPos(m_LightPos);
 }
 void Scene::render()
 {
 	 
 	glm::mat4 view = camera.GetViewMatrix();
 	m_Cube.SetView(view);
-	m_lightCube.SetView(view);
+	//for (int i = 0; i < 10; i++) 
+	//{
+		//cubes[i].SetView(view);
+	//}
+	//m_LightCube.SetView(view);
 
-	m_lightCube.Translate(m_LightPos);
-	m_lightCube.Scale(m_Scale);
-	m_Cube.SetLighPos(m_lightCube.getPos());
+	//m_LightCube.Translate(m_LightPos);
 
-	m_lightCube.draw();
+	m_Cube.SetLightPos(camera.Front);
+
+	//m_LightCube.draw();
+	//for (int i = 0; i < 10; i++)
+	//{
+	//std::cout << "Light pos =	" << cubes[i].getLightPos().x << " " << cubes[i].getLightPos().y <<
+	//	" " << cubes[i].getLightPos().z << std::endl;
+	//std::cout << "Cube["<<i<< "]pos =	" << cubes[i].getPos().x << " " << cubes[i].getPos().y <<
+	//	" " << cubes[i].getPos().z << std::endl;
+		//cubes[i].SetLightPos(m_LightCube.getPos());
+		//cubes[i].draw();
+	//}
 	m_Cube.draw();
 
 }
