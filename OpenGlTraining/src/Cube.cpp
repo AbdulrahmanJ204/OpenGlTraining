@@ -129,22 +129,17 @@ void Cube::updateUniforms() {
 
 
 	m_Shader->SetUniform3fv("viewPos", Scene::instancePtr->getCameraPosition());
-	//m_Shader->SetUniform3f("material.ambient", 1.0f, 0.5f, 0.31f);
-	//m_Shader->SetUniform3f("material.diffuse", 1.0f, 0.5f, 0.31f);
-	//m_Shader->SetUniform3f("material.specular", 0.5f, 0.5f, 0.5f);
+
 	m_Shader->SetUniform1f("material.shininess", 32.0f);
 	m_Shader->SetUniform1i("material.diffuse", 0);
 	m_Shader->SetUniform1i("material.specular", 1);
 
 
 
+	m_Shader->SetUniform3fv("light.position",m_LightPos);
 	m_Shader->SetUniform3f("light.ambient", 0.2f, 0.2f, 0.2f);
 	m_Shader->SetUniform3f("light.diffuse", 0.5f, 0.5f, 0.5f); // darkened
 	m_Shader->SetUniform3f("light.specular", 1.0f, 1.0f, 1.0f);
-	m_Shader->SetUniform3fv("light.position", Scene::instancePtr->getCameraPosition());
-	m_Shader->SetUniform3fv("light.direction", Scene::instancePtr->getCamera().Front);
-	m_Shader->SetUniform1f("light.cutOff", glm::cos(glm::radians(12.5f)));
-	m_Shader->SetUniform1f("light.outerCutOff", glm::cos(glm::radians(17.5f)));
 	m_Shader->SetUniform1f("light.constant", 1.0f);
 	m_Shader->SetUniform1f("light.linear", 0.007);
 	m_Shader->SetUniform1f("light.quadratic", 0.0002);
@@ -201,6 +196,7 @@ void Cube::SetProj(glm::mat4 proj) {
 }
 
 void Cube::SetLightPos(glm::vec3 pos) {
+	 // Transform to world space
 	m_LightPos = pos;
 }
 void Cube::RotateAroundAxis(float angle, const glm::vec3& axis, const glm::vec3& pivot) {
@@ -212,9 +208,4 @@ void Cube::RotateAroundAxis(float angle, const glm::vec3& axis, const glm::vec3&
 
 	// Step 3: Translate cube back to its original position
 	m_Model = glm::translate(glm::mat4(1.0f), pivot) * m_Model;
-}
-
-void Cube::setShader(const std::string& vertexPath, const std::string& fragmentPath)
-{
-	m_Shader = std::make_unique<Shader>(vertexPath, fragmentPath);
 }

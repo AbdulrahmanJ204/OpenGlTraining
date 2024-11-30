@@ -40,9 +40,8 @@ public:
 	void SetProj(glm::mat4 proj);
 	void SetLightPos(glm::vec3 pos);
 	void RotateAroundAxis(float angle, const glm::vec3& axis, const glm::vec3& pivot);
-	void setShader(const std::string& vertexPath, const std::string& fragmentPath);
 
-	inline glm::vec3 getPos() const { return m_Pos+m_Translate; }
+	inline glm::vec3 getPos() const { return m_Pos; }
 	inline glm::vec3 getLightPos() const { return m_LightPos; }
 };
 
