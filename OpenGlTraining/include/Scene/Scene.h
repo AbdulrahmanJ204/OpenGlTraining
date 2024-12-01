@@ -31,7 +31,7 @@ private:
 	//Cube m_Cube;
 	Cube  m_LightCube;
 	glm::vec3 m_LightPos;
-	float m_Rotation = 0.0f, m_Scale = 1.0f;
+	float m_Rotation = 0.0f, m_Scale = 10.0f;
 	glm::mat4 m_Proj, m_View;
 	glm::vec3 cubePositions[10];
 	Cube cubes[10];

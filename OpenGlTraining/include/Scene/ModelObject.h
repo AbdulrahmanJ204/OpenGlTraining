@@ -37,7 +37,7 @@ private:
     glm::mat4 m_Proj, m_View, m_ModelTransform;
     glm::vec3 m_Pos, m_LightPos;
     
-    LightColorProperties lightProp = LightHelper::getLightColor("white");
+    LightColorProperties lightProp = LightHelper::getLightColor("default");
     PointLight m_PointLight;
     SpotLight m_SpotLight;
     bool isSpotOn = false;

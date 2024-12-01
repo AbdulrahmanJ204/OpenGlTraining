@@ -64,7 +64,7 @@ public:
             format = GL_RGB;
         else if (nrComponents == 4)
             format = GL_RGBA;
-
+        //std::cout << path << " " << std::hex<< format << std::endl;
         glBindTexture(GL_TEXTURE_2D, textureID);
         glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);

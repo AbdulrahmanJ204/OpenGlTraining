@@ -11,7 +11,7 @@ ModelObject::ModelObject()
     m_Proj(glm::mat4(1.0f)),
     m_Pos(glm::vec3(0.0f)),
     m_LightPos(glm::vec3(10.0f, 10.0f, 20.0f)),
-    m_PointLight(m_LightPos, lightProp, 100.0f),
+    m_PointLight(m_LightPos, lightProp, 600.0f),
     m_SpotLight(m_LightPos, glm::vec3(0.0f, 0.0f, 0.0f), lightProp, 30.0f)
 {
     int width, height;
@@ -63,7 +63,7 @@ void ModelObject::updateUniforms() {
         m_SpotLight.turnOff(*m_Shader, "spotLight");
     }
 
-    m_Shader->SetUniform1f("material.shininess", 32.0f);
+    m_Shader->SetUniform1f("shininess", 8.0f);
 }
 
 void ModelObject::Rotate(float degree, glm::vec3& axis) {

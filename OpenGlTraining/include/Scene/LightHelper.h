@@ -18,6 +18,7 @@ public:
 
 	static Attenuation getAttenuationForRange(float distance) {
 		if (!attenuationMap.count((int)distance)) return attenuationMap[50];
+		std::cout << "Found ATT For : " << distance << std::endl;
 		return attenuationMap[(int)distance];
 
 	}
